@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MoYeoDream!</title>
+  <link
+    href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
+    rel="stylesheet"
+    type="text/css"
+  />
+  <link rel="stylesheet" href="/css/boardDetail.css" />
+  <link rel="stylesheet" type="text/css" href="/css/header.css">
+  <link rel="stylesheet" type="text/css" href="/css/login.css">
+</head>
+<body>
+  <header th:replace="~{/fragments/header::header}"></header>
+  <!-- 헤더 부분 ↑ -->
+  <form action="/post/list" name="pageForm" th:object="${criteria}">
+    <input type="hidden" th:field="*{pageNum}">
+    <input type="hidden" th:field="*{amount}">
+    <input type="hidden" th:filed="*{type}">
+    <input type="hidden" th:fleld="*{keyword}">
+  </form>
+  <div class="main-container" th:object="${post}">
+    <input type="hidden" th:field="*{postNumber}">
+    <section class="top">
+      <div class="back">
+        <svg id="goList"
+          stroke="currentColor"
+          fill="currentColor"
+          stroke-width="0"
+          viewBox="0 0 448 512"
+          color="808080"
+          cursor="pointer"
+          height="30"
+          width="30"
+          xmlns="http://www.w3.org/2000/svg"
+          style="color: rgb(128, 128, 128)"
+        >
+          <path
+            d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"
+          ></path>
+        </svg>
+      </div>
+      <div class="study-title" th:text="*{postTitle}"></div>
+      <div class="study-user">
+        <div class="memberInfoWrap">
+          <div class="user-profile">
+            <img
+                    src="https://hola-post-image.s3.ap-northeast-2.amazonaws.com/default.PNG"
+            />
+            <div class="user-nickname" th:text="*{memberNickname}"></div>
+          </div>
+          <div class="study-registered-date" th:text="*{postRegisterDate}"></div>
+        </div>
+        <section class="contentMange">
+          <button class="change-button" id="goModify">수정</button>
+          <button class="change-button" id="goDelete">삭제</button>
+        </section>
+      </div>
+      <!-- 추천 글 블럭 -->
+      <!--<div class="recommend-wrap">
+        <div class="recommend-post">
+          <div class="recommend-for">
+            <div class="line"></div>
+            <div class="recommend-who">
+              <span class="visitant">방문자</span>님이<br />좋아하실 글을
+              모아봤어요!
+            </div>
+          </div>
+          <ul class="recommend-post">
+            <li class="recommend">
+              <div class="recommend-index">1.</div>
+              <div class="recommend-title">
+                카페24의 스토어 플랫폼을 활용한 사이드 프로젝트(서울 관악)
+              </div>
+            </li>
+            <li class="recommend">
+              <div class="recommend-index">2.</div>
+              <div class="recommend-title">
+                카페24의 스토어 플랫폼을 활용한 사이드 프로젝트(서울 관악)
+              </div>
+            </li>
+            <li class="recommend">
+              <div class="recommend-index">3.</div>
+              <div class="recommend-title">
+                카페24의 스토어 플랫폼을 활용한 사이드 프로젝트(서울 관악)
+              </div>
+            </li>
+            <li class="recommend">
+              <div class="recommend-index">4.</div>
+              <div class="recommend-title">
+                카페24의 스토어 플랫폼을 활용한 사이드 프로젝트(서울 관악)
+              </div>
+            </li>
+            <li class="recommend">
+              <div class="recommend-index">5.</div>
+              <div class="recommend-title">
+                카페24의 스토어 플랫폼을 활용한 사이드 프로젝트(서울 관악)
+              </div>
+            </li>
+            <li class="recommend">
+              <div class="recommend-index">6.</div>
+              <div class="recommend-title">
+                카페24의 스토어 플랫폼을 활용한 사이드 프로젝트(서울 관악)
+              </div>
+            </li>
+            <li class="recommend">
+              <div class="recommend-index">7.</div>
+              <div class="recommend-title">
+                카페24의 스토어 플랫폼을 활용한 사이드 프로젝트(서울 관악)
+              </div>
+            </li>
+            <li class="recommend">
+              <div class="recommend-index">8.</div>
+              <div class="recommend-title">
+                카페24의 스토어 플랫폼을 활용한 사이드 프로젝트(서울 관악)
+              </div>
+            </li>
+            <li class="recommend">
+              <div class="recommend-index">9.</div>
+              <div class="recommend-title">
+                카페24의 스토어 플랫폼을 활용한 사이드 프로젝트(서울 관악)
+              </div>
+            </li>
+            <li class="recommend">
+              <div class="recommend-index">10.</div>
+              <div class="recommend-title">
+                카페24의 스토어 플랫폼을 활용한 사이드 프로젝트(서울 관악)
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>-->
+    </section>
+    <!-- 글 내용 -->
+    <section class="middle">
+      <div class="post-content">
+        <p id="postContent" th:utext="*{postContent}">
+        </p>
+      </div>
+      <div class="edit-button">
+<!--        <button class="edit" onclick="location.href='boardEdit.html'">-->
+<!--          수정하기-->
+<!--        </button>-->
+      </div>
+    </section>
+    <!-- 글 내용 -->
+    <section class="study-comment-wrap">
+      <div class="study-comment">
+        <div class="comment-input-wrap">
+          <h1>0개의 댓글이 있습니다.</h1>
+          <textarea
+            class="comment-input"
+            placeholder="댓글을 입력하세요."
+          ></textarea>
+          <div class="comment-button">
+            <button class="comment-input-button" name="register">
+              댓글 등록
+            </button>
+          </div>
+        </div>
+        <!-- 댓글 목록 -->
+        <ul class="comment-list">
+
+        </ul>
+      </div>
+    </section>
+  </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script th:inline="javascript">
+  let memberNumber = [[${session.memberNumber}]];
+</script>
+<script src="/js/header.js"></script>
+<script src="/js/login.js"></script>
+<script src="/js/boardDetail.js"></script>
+<script th:inline="javascript">
+  let params = [[${criteria.listLink}]];
+  let postNum = [[${post.postNumber}]];
+  let goList = document.querySelector("svg#goList");
+  let memberNum = [[${session.memberNumber}]];
+  let postMemberNum = [[${post.postMemberNumber}]];
+  let profileImg = [[${post.memberProfile}]];
+
+  console.log(postNum);
+  console.log(memberNum);
+  console.log(postMemberNum);
+
+  showList(postNum);
+
+  if(memberNum == postMemberNum){
+    $(".change-button").show();
+  }else{
+    $(".change-button").hide();
+  }
+
+  $("#goModify").on("click",function(){
+    location.href = "/post/modify" + params + "&postNumber=" + postNum;
+  });
+
+  goList.addEventListener("click",function(){
+    location.href="/post/list" + params;
+  });
+
+  // 프로필 이미지 적용
+  if(profileImg != null){
+    $("div.user-profile").find("img").prop("src","/file/displayProfile?path="+profileImg);
+  }
+
+
+  // 게시글 삭제
+  $("#goDelete").on("click",function(){
+    let check = confirm("게시글을 삭제하시겠습니까?");
+    if(check){
+      location.href = "/post/remove" + params + "&postNumber=" + postNum;
+    }
+  });
+
+  // 댓글 목록 가져오기
+  function showList(postNumber){
+
+    postCommentService.getList(postNumber, function(list){
+      let str = "";
+
+      $.each(list, function(i, comment){
+
+        let commentNum = comment.postCommentNumber;
+
+        str += "<li class='comment'>";
+        str += "<section class='comment-info-wrap'>";
+        str += "<div class='comment-info'>";
+
+        if(comment.memberProfile != null){
+          str += "<img src='/file/displayProfile?path=" + comment.memberProfile + "'>";
+        }else{
+          str += "<img src='https://hola-post-image.s3.ap-northeast-2.amazonaws.com/default.PNG'/>";
+        }
+
+        str += "<div class='comment-title-wrap'>";
+        str += "<div class='comment-title'>";
+        str += "<div class='comment-user'>" + comment.postCommentNickname + "</div>";
+        str += "<div class='comment-registered-date'>" + comment.postCommentUpdateDate + "</div>";
+        str += "</div>";
+        str += "</div>";
+        str += "</div>";
+
+        // 내 댓글만 수정 가능
+        if(memberNum == comment.postCommentMemberNumber){
+          str += "<section class='comment-button-wrap "+ commentNum + "'>";
+          str += "<button class='comment-button modifyBtn "+ commentNum + "'>수정</button>";
+          str += "<button class='comment-button deleteBtn "+ commentNum + "'>삭제</button>";
+          str += "<button class='comment-button modOkBtn "+ commentNum + "'>수정완료</button>";
+          str += "<button class='comment-button cancelBtn "+ commentNum + "'>취소</button>";
+          str += "</section>";
+        }
+
+        str += "</section>";
+        str += "<section class='comment-content-wrap'>";
+        str += "<p class='comment-content'>"+ comment.postCommentContent +"</p>";
+        str += "</section>";
+        str += "<section class='modifyCommentWrap'>";
+        str += "<textarea class='modifyComment'></textarea>";
+        str += "</section>";
+        str += "</li>";
+
+      });
+      $("ul.comment-list").html(str);
+
+      postCommentService.getTotal(postNum,function(result){
+        $(".comment-input-wrap").find("h1").text(result + "개의 댓글이 있습니다.");
+      })
+    });
+  };
+
+  // 댓글 수정창이 한개만 열리게 하기 위함
+  let modCheck = false;
+
+  // 댓글 등록
+  $(".comment-input-button").on("click",function(e){
+    e.preventDefault();
+
+    if(!memberNum){
+      alert("로그인 후 이용해주세요.");
+      return;
+    }
+    if(!$(".comment-input").val()){
+      alert("내용을 입력해주세요.");
+      return;
+    }
+
+    let postNumber = postNum;
+    let postContent = $(".comment-input").val();
+    let memberNumber = 1;
+
+    postCommentService.register({
+      postCommentContent : postContent,
+      postCommentMemberNumber : memberNumber,
+      postCommentPostNumber : postNumber
+    }, function(result){
+      console.log("댓글 등록 성공");
+      $(".comment-input").val("");
+      showList(postNumber);
+    });
+  });
+
+  // 댓글 수정 클릭
+
+  $("ul.comment-list").on("click","button.modifyBtn", function(e){
+
+    e.preventDefault();
+
+    if(modCheck){
+      alert("이미 수정중인 댓글이 있습니다.");
+      return;
+    }
+
+    modCheck = true
+    let commentNum = this.classList[2];
+
+    $("button." + commentNum).show();
+    $(this).hide();
+    $(this).next().hide();
+
+    let originalVal = $(this).closest("li").find(".comment-content-wrap");
+    let toModify = $(this).closest("li").find(".modifyCommentWrap");
+
+    toModify.find("textarea").val(originalVal.text());
+    originalVal.hide();
+    toModify.show();
+  });
+
+  // 댓글 수정 취소
+  $("ul.comment-list").on("click","button.cancelBtn", function(e){
+    e.preventDefault();
+    let commentNum = this.classList[2];
+
+    $("button." + commentNum).show();
+    $(this).hide();
+    $(this).prev().hide();
+
+    let originalVal = $(this).closest("li").find(".comment-content-wrap");
+    let toModify = $(this).closest("li").find(".modifyCommentWrap");
+
+    originalVal.show();
+    toModify.hide();
+    modCheck = false;
+  });
+
+  // 댓글 수정 완료
+  $("ul.comment-list").on("click","button.modOkBtn", function(e){
+    e.preventDefault();
+    let commentNum = this.classList[2];
+
+    let originalVal = $(this).closest("li").find(".comment-content-wrap");
+    let toModify = $(this).closest("li").find(".modifyCommentWrap");
+
+    postCommentService.modify({
+      postCommentNumber : commentNum,
+      postCommentContent: toModify.find("textarea").val()
+    },function(){
+      console.log("댓글 수정 성공");
+      showList(postNum);
+    })
+
+    $("button." + commentNum).show();
+    $(this).hide();
+    $(this).next().hide();
+    showList(postNum);
+    modCheck = false;
+
+  });
+
+  // 댓글 삭제
+  $("ul.comment-list").on("click","button.deleteBtn", function(e){
+    e.preventDefault();
+    let commentNum = this.classList[2];
+    let originalVal = $(this).closest("li").find(".comment-content-wrap");
+
+    let delCheck = confirm("댓글을 삭제하시겠습니까?");
+    if(!delCheck){
+      return;
+    }
+
+    postCommentService.remove(commentNum, function(){
+      console.log("댓글 삭제 성공");
+      showList(postNum);
+    });
+  });
+
+
+
+
+</script>
+</html>

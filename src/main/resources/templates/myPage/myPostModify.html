@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MoYeoDream!</title>
+    <link
+            href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
+            rel="stylesheet"
+            type="text/css"
+    />
+    <link
+            href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
+            rel="stylesheet"
+    />
+    <link
+            href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/boardWrite.css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+</head>
+<body>
+<div id="root">
+    <!--    <header th:replace="~{/fragments/header::header}"></header>-->
+    <!-- 헤더 부분 ↑ -->
+    <div class="board_Post">
+        <form action="/member/myPostModify" method="post" name="postForm">
+            <input type="hidden" th:field="${criteria.pageNum}">
+            <input type="hidden" th:field="${criteria.amount}">
+            <input type="hidden" th:filed="${criteria.type}">
+            <input type="hidden" th:fleld="${criteria.keyword}">
+            <section>
+                <div class="boardPost_ContentWrapper">
+                    <span class="post_Circle">1</span>
+                    <h2 class="boardPost_text">자유롭게 글을 작성해주세요.</h2>
+                </div>
+            </section>
+            <section th:object="${post}">
+                <input type="hidden" th:field="*{postNumber}">
+                <!-- 게시판 글쓰기 카테고리 -->
+                <div class="board-category">
+                    <label for="category-select" class="labels" >카테고리</label>
+                    <div class="select">
+                        <select id="category-select" th:field="*{postCategory}" disabled>
+                            <option value="FREETALKING">자유주제</option>
+                            <option value="QNA">질문&답변</option>
+                            <option value="STUDYREVIEW">스터디 후기</option>
+                            <option value="INTERVIEW">기업면접 후기</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- 게시판 글쓰기 카테고리 -->
+                <label for="input" class="input_labelText labels">제목</label>
+                <input
+                        th:field="*{postTitle}"
+                        type="text"
+                        class="input_box"
+                        id="input"
+                        placeholder="글 제목을 입력해주세요!"
+                        value
+
+                />
+                <textarea id="summernote" name="content"></textarea>
+                <input type="hidden" th:field="*{postContent}">
+            </section>
+            <section class="register_button">
+                <button class="write_cancel"><a th:href="@{/member/myPostRead(postNumber=${post.postNumber})}">취소</a></button>
+                <button type="submit" class="write_register">등록</button>
+            </section>
+        </form>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+<script th:inline="javascript">
+    let memberNumber = [[${session.memberNumber}]];
+</script>
+<script src="/js/header.js"></script>
+<script src="/js/login.js"></script>
+<script src="/js/myPostModify.js"></script>
+<script th:inline="javascript">
+    let content = [[${post.postContent}]];
+    // 불러온 postContent
+    let category = [[${post.postCategory}]];
+
+    $(document).ready(function(){
+        $("option").each(function(){
+            if($(this).val() == category){
+                $(this).prop("selected");
+            }
+        });
+    });
+
+    $("#goList").on("click",function(e){
+        e.preventDefault();
+    });
+
+    //------------board Write 공통 내용------------------------------//
+    let inputContent = document.querySelector("input[name=postContent]");
+    // 값을 넣어줄 input
+    let $postForm = $("form[name= postForm]");
+
+    function saveContent(){
+        let $value = $("#summernote").summernote('code');
+        inputContent.value = $value;
+
+        // 이미지 파일 유무 검사
+        if($value.indexOf("<img") != -1){
+            console.log("이미지 태그 있음");
+
+            // DB 입력을 위한 img input hidden
+            let hiddenInput = $("input[class='imgFile']");
+            // let hiddenName = $("input[class='imgFile']").attr("value");
+
+            // 실제 입력된 이미지 태그의 개수
+            let noteImgArr = $(".panel-body").find("img");
+            let noteImgCount = noteImgArr.length;
+            console.log(noteImgCount);
+
+            if($(".panel-body").find("img") != null){
+                $.each(noteImgArr, function(i, noteImg){
+                    let path = $(this).attr("src");
+                    let uploadDirectory = path.substr(path.indexOf("=")+1,10);
+                    console.log(uploadDirectory);
+                    let fileName = path.substr(path.lastIndexOf("t_")+2);
+                    console.log(fileName);
+
+                    let str = '';
+                    str += "<input type='hidden' class='imgFile' id= 'fileList["+ i +"]' name='fileList["+ i +"].fileName' value='"+ fileName +"'>";
+                    str += "<input type='hidden' class='imgFile' id= 'fileList["+ i +"]' name='fileList["+ i +"].uploadDirectory' value='"+ uploadDirectory +"'>";
+
+                    $postForm.append(str);
+                })
+            };
+
+        }else{
+            console.log("이미지 태그 없음");
+            $("input[class='imgFile']").remove();
+        }
+
+        $postForm.submit();
+    }
+    //-------------------------------------------------------------//
+</script>
+</html>

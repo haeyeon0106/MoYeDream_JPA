@@ -1,0 +1,202 @@
+@charset "UTF-8";
+
+body {
+  display: block;
+  margin: 0;
+  font-family: "Spoqa Han Sans Neo", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  box-sizing: border-box;
+  min-height: 100%;
+}
+
+li, h3, p {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: currentColor;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button {
+  outline: none;
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.category-box {
+  display: flex;
+  max-width: 1200px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  margin: 70px auto;
+}
+
+button.new-inquiry {
+  font-size: 16px;
+  color: #444;
+}
+
+.category-box .page-title {
+  font-size: 35px;
+}
+
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100%;
+}
+
+.board-list-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.board {
+  display: flex;
+  padding: 20px;
+}
+
+.board .board_info {
+  flex: 1 1 590px;
+  max-width: 590px;
+}
+
+.board .title_text {
+  overflow: hidden;
+  margin-right: 9px;
+  color: #1b1c1d;
+  text-overflow: ellipsis;
+  line-height: 1.5;
+  text-align: left;
+  font-weight: 700;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 20px;
+}
+
+.board .board_body {
+  max-height: 44px;
+  overflow: hidden;
+  font-size: 15px;
+  color: #616568;
+  text-overflow: ellipsis;
+}
+
+.board .board_addInfo {
+  max-width: 146px;
+  margin-left: auto;
+  flex: 1 1 146px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.board .board_comment {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dee2e6;
+  width: 66px;
+  height: 66px;
+  text-align: center;
+  justify-content: center;
+  border-radius: 100px;
+}
+
+.board .comment_count {
+  font-size: 18px;
+  font-weight: 500;
+  color: #1b1c1d;
+}
+
+.board .comment_description {
+  font-size: 12px;
+  font-weight: 500;
+  color: #616568;
+}
+
+.board-infoItem {
+  display: flex;
+  align-items: center;
+  color: #999;
+  grid-gap: 6px;
+  gap: 6px;
+  margin-top: 5px;
+}
+
+.board-container {
+  border: 2px solid #d1d1d1;
+  border-radius: 30px;
+  margin-bottom: 15px;
+}
+
+.board .board_info-footer {
+  color: #858a8d;
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 30px;
+}
+
+
+
+
+/* 페이징 버튼 */
+.pagination .pagination-list {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 100px;
+}
+.pagination.is-small {
+  font-size: 0.75rem;
+}
+.pagination-link,
+.pagination-prev,
+.pagination-next {
+  -webkit-appearance: none;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: none;
+  display: inline-flex;
+  height: 2.25em;
+  line-height: 1.5;
+  padding: calc(0.375em - 1px) calc(0.625em - 1px);
+  position: relative;
+  vertical-align: top;
+  font-size: 1em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  justify-content: center;
+  margin: 0.25rem;
+  text-align: center;
+  border-color: #dbdbdb;
+  color: #363636;
+  min-width: 2.25em;
+}
+.pagination-link.is-current {
+  background-color: #ffe579;
+  border-color: #ffe579;
+  color: #000;
+  font-weight: 600;
+}
+
+.board-container:hover{
+  transform: scale(1.03);
+  transition: transform 0.3s;
+}

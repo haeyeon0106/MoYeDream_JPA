@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoYeoDream!</title>
+    <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/inquiryCreate.css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+</head>
+<body>
+    <header th:replace="~{/fragments/header::header}"></header>
+    <!-- 헤더 부분 ↑ -->
+    <div class="main-container">
+        <form method="post" action="/inquiry/register" id="inquiryForm">
+            <section class="bottom">
+                <div class="study-title">
+                    <span>1</span>
+                    <h2>문의사항을 작성해주세요.</h2>
+                </div>
+                <section class="study-title-input">
+                    <label for="title-input">제목</label>
+                    <input type="text" name="inquiryTitle" id="title-input" placeholder="글 제목을 입력해주세요!">
+                    <div class="summernote"></div>
+                    <input type="hidden" class="inquiry-content" name="inquiryContent">
+                </section>
+                <section class="study-button">
+                    <button type="button" class="cancel"><a th:href="@{/inquiry/list}">취소</a></button>
+                    <button type="button" class="register">등록</button>
+                </section>
+            </section>
+        </form>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+<script th:inline="javascript">
+    let memberNumber = [[${session.memberNumber}]];
+</script>
+<script src="/js/inquiryCreate.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/login.js"></script>
+</html>

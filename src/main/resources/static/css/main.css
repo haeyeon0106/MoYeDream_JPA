@@ -1,0 +1,514 @@
+body {
+    margin : 0;
+    padding : 0;
+    font-family: "Spoqa Han Sans Neo",-apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+}
+
+li{
+    list-style: none;
+}
+
+section{
+    width : 100%;
+}
+
+.banner{
+    width : 100%;
+    height: 330px;
+    background-color: #ffe579;
+}
+
+.bannerContent{
+    max-width: 1200px;
+    height: 100%;
+    padding : 0 20px;
+    margin: 0 auto;
+    display: flex;
+    cursor: pointer;
+}
+
+.bannerLeft, .bannerRight{
+    width : 50%;
+    height : 100%;
+}
+
+.bannerLeft{
+    height : 100%;
+}
+
+.bannerLeftWrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height : 100%;
+}
+
+.bannerBtn{
+    outline: none;
+    border : none;
+    font-weight: 700;
+    padding: 5px 30px;
+    color: #fff;
+    background: #a259ff;
+    border-radius: 50px;
+    margin-bottom:30px;
+}
+
+.bannerLeftWrap h2{
+    display: inline-block;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.bannerLeft span{
+    font-size: 32px;
+}
+
+.bannerTextBottom span{
+    font-size: 22px;
+}
+
+.bannerRight {
+    display: flex;
+    justify-content: center;
+}
+
+.bannerRight img{
+    height : 244px;
+    margin : 38px 0;
+}
+
+.cateFilterWrap{
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 15px;
+    margin: 104px auto;
+}
+
+.cateFilterWrap ul{
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+.cateTopWrap{
+    border-bottom: 3px solid #f2f2f2;
+}
+
+.cateLi{
+    cursor: pointer;
+    display: inline-block;
+    color: #848484;
+    font-weight: 700;
+    font-size: 26px;
+    margin: -2px 0;
+    margin-right: 40px;
+}
+
+/* default cateFilter */
+.cateLiSelect{
+    border-bottom: 5px solid #ffe579;
+    color: #333;
+}
+
+.cateTopWrap p{
+    margin: 0 15px;
+    margin-bottom: 15px;
+}
+
+.mainContentWrap{
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 0 10px;
+}
+
+.contentType{
+    width : 100%;
+    display: flex;   
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding : 0 20px;
+}
+
+.typeWrap{
+    display: flex;
+    width: fit-content;   
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.typeWrap div{
+    margin: 0 10px;
+}
+
+.typeLi{
+    color: #868e96;
+    cursor: pointer;
+}
+
+.typeSelect{
+    color: #444;
+    cursor: pointer;
+}
+
+.cateBottomWrap{
+    margin-top: 20px;
+}
+
+.cateBottomWrap ul{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cateChildLi{
+    border: 1px solid #d0d0d0;
+    border-radius: 100px;
+    cursor : pointer;
+    margin-top: 15px;
+    margin-right: 20px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.cateChildLi:hover{
+    transform: scale(1.03);
+    transition: transform 0.3s;
+}
+
+.disabled{
+    opacity: .3;
+}
+
+.cateChildLi p{
+    margin: 20px 25px;
+}
+
+.cateBlockWrap{
+    margin-top: 15px;
+}
+
+.cateBlockWrap ul{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cateBlock{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: #f2f2f2;
+    padding: 5px 15px;
+    height: 41px;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 18px;
+    color: #313131;
+    margin-right : 20px;
+    margin-top : 15px;
+    cursor: pointer;
+}
+
+.filterXbtn{
+    margin-left: 7px;
+}
+
+.filterClear{
+    display: none;
+    align-items: center;
+    padding: 5px 15px;
+    height: 41px;
+    margin-top : 15px;
+    font-weight: 450;
+    font-size: 19px;
+    color: #333;
+    cursor: pointer;
+}
+
+.flex{
+    display: flex;
+}
+
+.onFilter{
+    width : fit-content;
+    display: flex;
+    align-items: center;
+}
+
+.onFilter span{
+    color: #444;
+    font-size: 24px;
+    font-weight: 700;
+    margin-right: 20px;
+}
+
+input[type="checkbox"]{
+    display: none;
+}
+
+.toggleSwitch{
+    position : relative;
+    background-color: #c1cbd8;
+    display: inline-block;
+    height: 26px;
+    width: 50px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.checked{
+    background-color: #ffcd00;
+}
+
+.checkedBall{
+    transform: translateX(24px);
+    transition: transform .2s linear, -webkit-transform .2s linear;
+    background-color: #fff;
+}
+
+#switchInput{
+    border: 0;
+}
+
+.toggleBall{
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    background-color: white;
+    transition: transform .2s linear, -webkit-transform .2s linear;
+}
+
+.contentChildren{
+    margin-top: 20px;
+}
+
+.contentList3Wrap{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.contentListChild{
+    list-style: none;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin : 15px 0;
+    padding: 35px 26px 30px 34px;
+    width: 370px;
+    height: 400px;
+    box-sizing: border-box;
+    background: #fff;
+    border: 2px solid #d1d1d1;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-right: 35px;
+}
+
+.contentListChild:nth-child(3n) {
+    margin-right: 0px;
+}
+
+.contentListChild:hover{
+    transform: scale(1.03);
+    transition: transform 0.3s;
+}
+
+.contentDate{
+    display: flex;
+    font-size: 18px;
+    color: rgba(0,0,0,.4);
+}
+
+.contentDate p:nth-child(2) {
+    margin-left: 5px;
+}
+
+.contentListChild h2{
+    font-size: 24px;
+    letter-spacing: -1px;
+    font-weight: 400;
+    height: 76px;
+}
+
+.hashList{
+    display: flex;
+    padding: 0;
+    margin-bottom: 36px;
+    min-height: 78px;
+}
+
+.hashList li{
+    list-style: none;
+    margin-right: 5px;
+    font-size: 18px;
+    color: rgba(0,0,0,.4);
+}
+
+.iconList{
+    padding : 0;
+    margin-bottom: 36px;
+}
+
+.iconList li{
+    list-style: none;
+}
+
+.iconList li img{
+    width : 48px;
+    height : 48px;
+}
+
+.contentBottom{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    border-top: 2px solid #f2f2f2;
+}
+
+.contentLeader{
+    display: flex;
+    align-items: center;
+}
+
+.contentLeader img{
+    width : 40px;
+    height : 40px;
+}
+
+.contentLeader p{
+    font-size: 18px;
+    font-weight: 400;
+    margin-left: 7px;
+}
+
+.contentReaction{
+    display: flex;
+    align-items: center;
+}
+
+.contentReaction div{
+    display : flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.contentReaction div p{
+    margin-left: 5px;
+    color: #999;
+}
+
+.modalWrap{
+    position: fixed;
+    top : 0 ;
+    left: 0 ;
+    bottom: 0;
+    right: 0;
+    display: block;
+    width : 100%;
+    height : 100%;
+    z-index: 1998;
+}
+
+.modalBack{
+    position: fixed;
+    top : 0 ;
+    left: 0 ;
+    bottom: 0;
+    right: 0;
+    width : 100%;
+    height : 100%;
+    background: rgba(77, 77, 77, 0.5);
+    z-index: 1999;
+}
+
+.modalContent{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width : 800px;
+    height : 555px;
+    box-sizing: border-box;
+    background-color: white;
+    z-index: 2000;
+}
+
+.modalTop{
+    width : 100%;
+    height : 48px;
+    box-sizing: border-box; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding : 0 15px;
+    background: #f8f9fa;
+    border-radius: 8px 8px 0 0;
+}
+
+.modalTop img{
+    height : 35px;
+    width: fit-content;
+}
+
+.modalBottom{
+    width : 100%;
+    height : 507px;
+    border-radius: 0 0 8px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start
+}
+
+.welcomeText{
+    margin-top : 15px;
+}
+
+.welcomeText p{
+    font-size: 32px;
+    color: #333;
+    font-family: inherit;
+    font-weight: 800;
+}
+
+button{
+    outline : none;
+    border : none;
+}
+
+.loginBtnWrap{
+    width : 60%;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    margin-top: 30px;
+}
+
+.loginBtnWrap div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.loginBtnWrap div p{
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    color : #333;
+}
+
+.job-content {
+    display: none;
+}

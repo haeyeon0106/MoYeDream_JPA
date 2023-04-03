@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoYeoDream!</title>
+    <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/css/studyView.css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+</head>
+<body>
+    <header th:replace="~{/fragments/header::header}"></header>
+    <!-- 헤더 부분 ↑ -->
+    <div class="main-container">
+        <section class="top" th:object="${study}">
+            <div class="back">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" color="808080" cursor="pointer" height="30" width="30" xmlns="http://www.w3.org/2000/svg" style="color: rgb(128, 128, 128);">
+                    <path d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path>
+                </svg>
+            </div>
+            <div class="study-title" th:text="*{studyTitle}"></div>
+            <div class="study-user">
+                <div class="user-profile">
+                    <img src="https://hola-post-image.s3.ap-northeast-2.amazonaws.com/default.PNG">
+                    <div class="user-nickname" th:text="*{memberNickname}"></div>
+                </div>
+                <div class="study-registered-date"></div>
+            </div>
+            <section class="change-buttons" th:if="${study.studyMemberNumber == session.memberNumber}">
+                <button type="button" class="change-button" onclick="clickModify()">수정</button>
+                <button type="button" class="change-button" onclick="clickRemove()">삭제</button>
+            </section>
+            <ul class="study-info-wrap">
+                <li class="study-info">
+                    <span class="study-info-title">카테고리</span>
+                    <span class="study-info-content study-cate"></span>
+                </li>
+                <li class="study-info">
+                    <span class="study-info-title">진행 방식</span>
+                    <span class="study-info-content study-process"></span>
+                </li>
+                <li class="study-info">
+                    <span class="study-info-title">모집 인원</span>
+                    <span class="study-info-content study-people"></span>
+                </li>
+                <li class="study-info">
+                    <span class="study-info-title">시작 예정</span>
+                    <span class="study-info-content study-start"></span>
+                </li>
+                <li class="study-info">
+                    <span class="study-info-title">연락 방법</span>
+                    <div class="study-info-content">
+                        <a class="kakao-openchatting">
+                            <span>카카오톡 오픈채팅</span>
+                            <img src="https://holaworld.io/images/info/link.svg">
+                        </a>
+                    </div>
+                </li>
+                <li class="study-info">
+                    <span class="study-info-title">예상 기간</span>
+                    <span class="study-info-content study-period"></span>
+                </li>
+            </ul>
+        </section>
+        <section class="middle">
+            <h2 class="user-introduction">스터디장 소개</h2>
+            <div class="user-introduction"></div>
+            <div class="study-introduction-wrap">
+                <h2 class="study-introduction">스터디 소개</h2>
+                <div class="study-introduction"></div>
+            </div>
+        </section>
+        <section class="study-comment-wrap">
+            <div class="study-comment">
+                <div class="comment-input-wrap">
+                    <h1><span class="comment-total">0</span>개의 댓글이 있습니다.</h1>
+                    <textarea class="comment-input" placeholder="댓글을 입력하세요." name="studyCommentContent"></textarea>
+                    <div class="comment-button">
+                        <button class="comment-input-button" name="register" onclick="clickCommentRegister()">댓글 등록</button>
+                    </div>
+                </div>
+                <ul class="comment-list"></ul>
+            </div>
+        </section>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script th:inline="javascript">
+    let studyCategory = [[${study.studyCategory}]];
+    let studyProcess = [[${study.studyProcess}]];
+    let studyPersonnel = [[${study.studyPersonnel}]];
+    let studyPeriod = [[${study.studyPeriod}]];
+    let studyCommunication = [[${study.studyCommunication}]];
+
+    let studyChief = [[${study.studyChief}]];
+    let studyContent = [[${study.studyContent}]];
+    let studyRegisterDate = [[${study.studyRegisterDate}]];
+    let studyStartDate = [[${study.studyStart}]];
+
+    let studyNumber = [[${study.studyNumber}]];
+    let memberNumber = [[${session.memberNumber}]];
+    let memberProfile = [[${study.memberProfile}]];
+</script>
+<script src="/js/studyView.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/login.js"></script>
+</html>

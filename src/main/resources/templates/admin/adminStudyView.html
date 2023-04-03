@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYDM | 관리자 센터</title>
+    <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+    <link href="/css/adminNav.css" rel="stylesheet">
+    <link href="/css/adminStudyView.css" rel="stylesheet">
+
+</head>
+<body>
+    <!-- 여기부터 adminNav -->
+    <header>
+        <div class="headerWrap">
+            <div class="headerLeft">
+                <div class="headerLogo">
+                    <img onclick="location.href='/jobPosting/approveWait'" src="/img/adminLogo.png">
+                </div>
+            </div>
+            <div class="headerRight">
+                <div class="headerIcon">
+                    <img src="/img/mainicon.png">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"></path></svg>
+                    <div class="iconHidden">
+                        <div onclick="location.href='/admin/login'"><p>로그아웃</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav>
+        <div class="navWrap">
+            <div class="navDiv">
+                <div class="menuParent studyParent">
+                    <p>스터디</p>
+                    <div class="menuArrow">
+                        <svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-8mmkcg"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg>
+                    </div>
+                </div>
+                <div class="menuChild studyChild" onclick="location.href='/study/getStudyList'">
+                    <p>스터디 관리</p>
+                </div>
+            </div>
+            <div class="navDiv">
+                <div class="menuParent postParent">
+                    <p>채용공고</p>
+                    <div class="menuArrow">
+                        <svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-8mmkcg"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg>
+                    </div>
+                </div>
+                <div class="menuChild postChild" onclick="location.href='/jobPosting/getJobList'">
+                    <p>채용공고 관리</p>
+                </div>
+            </div>
+            <div class="navDiv">
+                <div class="menuParent qnaParent">
+                    <p>문의게시판</p>
+                    <div class="menuArrow">
+                        <svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-8mmkcg"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg>
+                    </div>
+                </div>
+                <div class="menuChild qnaChild" onclick="location.href='/inquiry/getInqList'">
+                    <p>문의글 관리</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- 여기까지 adminNav -->
+    <section>
+        <div class="sectionWrap" th:object="${study}">
+            <div class="topTitle">  
+                <h1>스터디 상세보기</h1>
+            </div>
+            <div class="contentWrap">
+                <div class="backBtn">
+                    <div>
+                        <svg onclick="goList()" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" color="808080" cursor="pointer" height="30" width="30" xmlns="http://www.w3.org/2000/svg" style="color: rgb(128, 128, 128);"><path d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path></svg>
+                    </div>
+                </div>
+                <div class="studyTitle">
+                    <h1 th:text="*{studyTitle}"/>
+                </div>
+                <div class="writerWrap">
+                    <div class="writerImg">
+                        <img  th:src="*{memberProfile}">
+                    </div>
+                    <div class="writerName">
+                        <p th:text="*{memberNickname}"/>
+                    </div>
+                    <div class="registerDate">
+                        <p th:text="*{studyRegisterDate}"/>
+                    </div>
+                </div>
+                <div class="basicInfoWrap">
+                    <div class="">
+                        <p class="infoQ">카테고리</p>
+                        <p class="infoA" th:text="*{studyCategory}"/>
+                    </div>
+                    <div class="">
+                        <p class="infoQ">진행 방식</p>
+                        <p class="infoA" th:text="*{studyProcess}"/>
+                    </div>
+                    <div class="">
+                        <p class="infoQ">시작 예정일</p>
+                        <p class="infoA" th:text="*{studyStart}"/>
+                    </div>
+                    <div class="">
+                        <p class="infoQ">진행 기간</p>
+                        <p class="infoA" th:text="*{studyPeriod}"/>
+                    </div>
+                    <div class="">
+                        <p class="infoQ">모집 인원</p>
+                        <p class="infoA" th:text="*{studyPersonnel}"/>
+                    </div>
+                    <div class="">
+                        <p class="infoQ">연락 방법</p>
+                        <div class="openLink">
+                            <a class="infoA" th:href="@{*{studyCommunication}}" th:text="*{studyCommunication}"/>
+                            <img src="/img/openLink.svg">
+                        </div>
+                    </div>
+                </div>
+                <div class="studyIntro">
+                    <p>스터디 장 소개</p>
+                </div>
+                <div class="studyIntroDetail">
+                    <p th:text="*{studyChief}"/><br>
+                </div>
+                <div class="studyIntro">
+                    <p>스터디 소개</p>
+                </div>
+                <div class="studyIntroDetail">
+                    <p th:text="*{studyContent}"/>
+                </div>
+            </div>
+            <div class="btnWrap">
+                <div>
+                    <th:block th:if="*{studyApprove} == 0">
+                        <button type="button" class="confirm" onclick="goAppend()">승인</button>
+                    </th:block>
+                    <button type="button" class="confirm" onclick="goDelete()">삭제</button>
+                    <button type="button" class="refuse" onclick="goCheck()">체크</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/adminNav.js"></script>
+<!--<script src="/js/adminStudyView.js"></script>-->
+<script th:inline="javascript">;
+let studyNumber = [[${study.studyNumber}]];
+let params = [[${criteria.listLink}]];
+console.log("/study/approve"+params+"&studyNumber"+studyNumber);
+
+function goAppend(){
+    location.href = "/study/approve"+params+"&studyNumber="+studyNumber;
+}
+
+function goDelete(){
+    location.href = "/study/delete"+params+"&studyNumber="+studyNumber;
+}
+
+function goCheck(){
+    location.href = "/study/check"+params+"&studyNumber="+studyNumber;
+}
+
+function goList(){
+    location.href = "/study/getStudyList"+params+"&studyNumber="+studyNumber;
+}
+</script>
+<script src="/js/adminNav.js"></script>
+</html>

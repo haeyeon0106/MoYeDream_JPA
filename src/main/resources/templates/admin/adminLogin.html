@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYDM | 관리자 로그인</title>
+    <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/adminLogin.css">
+
+</head>
+<body>
+<section>
+    <div class="loginPage">
+        <div class="loginBox">
+            <div class="logoBox">
+                <img src="/img/adminLogo.png">
+            </div>
+            <div class="formBox">
+                <form action="/admin/login" method="post" id="adminLogin">
+                    <div>
+                        <input type="text" name="adminId" class="adminId" placeholder="아이디">
+                    </div>
+                    <div>
+                        <input type="password" name="adminPw" class="adminPw" placeholder="비밀번호">
+                    </div>
+                    <p class="errorMsg"></p>
+                    <button type="submit" class="loginBtn">로그인</button>
+                </form>
+            </div>
+            <div class="forgetBox">
+                <p> 로그인에 문제가 있으신가요? </p>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/adminLogin.js"></script>
+</html>

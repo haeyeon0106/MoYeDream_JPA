@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MoYeoDream!</title>
+  <link
+    href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
+    rel="stylesheet"
+    type="text/css"
+  />
+  <link rel="stylesheet" href="/css/board.css" />
+  <link rel="stylesheet" type="text/css" href="/css/header.css">
+  <link rel="stylesheet" type="text/css" href="/css/login.css">
+</head>
+<body>
+  <header th:replace="~{/fragments/header::header}"></header>
+  <!-- 헤더 부분 ↑ -->
+
+  <section class="category-box" style="border-bottom: 2px solid #d1d1d1">
+    <h2 class="page-title">자유 게시판</h2>
+    <div class="postReg" th:if="${session.memberNumber} != null">
+      <button type="button" class="postRegBtn">+</button>
+      <p class="postRegText">글쓰기</p>
+    </div>
+  </section>
+
+  <div class="main-container">
+    <nav class="board-nav">
+      <ul class="board-aside">
+        <li class="board-aside_menu menu-select">
+          <a id="viewAll" href="#"><span>전체</span></a>
+        </li>
+        <li class="board-aside_menu">
+          <a class="searchCate" name="M" value="" href="#"><span>내 작성글 보기</span></a>
+        <li class="board-aside_menu">
+          <a class="searchCate" name="C" value="FREETALKING" href="#"><span>자유주제</span></a>
+        </li>
+        <li class="board-aside_menu">
+          <a class= "searchCate" name="C" value="QNA" href="#"><span>질문&답변</span></a>
+        </li>
+        <li class="board-aside_menu">
+          <a class="searchCate" name="C" value="STUDYREVIEW" href="#"><span>스터디 후기</span></a>
+        </li>
+        <li class="board-aside_menu">
+          <a class="searchCate" name="C" value="INTERVIEW" href="#"><span>기업면접 후기</span></a>
+        </li>
+      </ul>
+    </nav>
+    <section class="board-list-container">
+      <ul class="board-list">
+        <div class="noPostWrap" th:if="${postList.size() == 0}">
+          <p> 등록된 게시물이 없습니다. </p>
+        </div>
+        <th:block th:unless="${postList.size() == 0}" th:each="post:${postList}">
+          <li class="board-container" id ="goRead" th:object="${post}" th:href="${post.postNumber}">
+            <a href="">
+              <div class="board">
+                <div class="boardNumber">
+                  <!--<p class="textNO">NO .</p>-->
+                  <p th:text="*{postNumber}"/>
+                </div>
+                <div class="board_info">
+                  <div class="board-title">
+                    <h3 class="title_text" th:text="*{postTitle}"></h3>
+                  </div>
+                  <div class="contentWrap">
+                    <p class="board_body postContentP" th:inline="none"></p>[(*{postContent})]
+                  </div>
+                  <input type="hidden">
+                  <div class="board_info-footer">
+                    <span th:text="*{memberNickname}"></span>
+                    <span>&nbsp;&nbsp;</span>
+                    <span th:text="*{postUpdateDate}"></span>
+                  </div>
+                </div>
+                <div class="board_addInfo">
+                  <div class="board_comment">
+                    <span class="comment_count" th:text="*{postCommentCount}"></span>
+                    <span class="comment_description">댓글</span>
+                  </div>
+                  <div class="board-infoItem">
+                    <svg
+                      stroke="currentColor"
+                      fill="currentColor"
+                      stroke-width="0"
+                      viewBox="0 0 1024 1024"
+                      color="#999999"
+                      height="28"
+                      width="28"
+                      xmlns="http://www.w3.org/2000/svg"
+                      style="color: rgb(153, 153, 153)"
+                    >
+                      <path
+                        d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 0 0 0 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                      ></path>
+                    </svg>
+                    <p th:text="*{postViews}"></p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </li>
+        </th:block>
+      </ul>
+      <nav
+        class="pagination is-centered is-small"
+        role="navagation"
+        aria-label="pagination"
+      >
+        <ul class="pagination-list">
+          <li th:if="${pageDTO.prev}">
+            <a class="pagination-prev changePage" href="" aria-label="이전 페이지로 이동"
+              th:href="${pageDTO.startPage -1}"><<</a
+            >
+          </li>
+          <th:block th:each="num:${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
+          <li>
+            <span class="pagination-link changePage"
+                  aria-label="1 페이지로 이동"
+                  th:if="${pageDTO.criteria.pageNum == num}" th:text="${num}"></span>
+            <a class="pagination-link changePage"
+               aria-label="1 페이지로 이동"
+               th:unless="${pageDTO.criteria.pageNum == num}" th:href="${num}"><span th:text="${num}"></span></a>
+          </li>
+          </th:block>
+          <li th:if="${pageDTO.next}">
+            <a class="pagination-next changePage" href="" aria-label="다음 페이지로 이동"
+              th:href="${pageDTO.endPage + 1}">>></a
+            >
+          </li>
+        </ul>
+        <form action="/post/list" name="pageForm" th:object="${criteria}">
+          <input type="hidden" th:field="*{pageNum}">
+          <input type="hidden" th:field="*{amount}">
+          <input type="hidden" name="type" th:value="*{type}">
+          <input type="hidden" name="keyword" th:value="*{keyword}">
+        </form>
+      </nav>
+      <!-- 검색 필터 -->
+      <form action="/post/list" name="searchForm">
+        <div class="searchWrap">
+          <div class="searchContent">
+            <div class="filter1st">
+              <div class="selectBox">
+                <div class="selected">
+                  <div class="selectedValue typeText">검색조건 선택</div>
+                  <div class="arrow">
+                    <svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-8mmkcg"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg>
+                  </div>
+                </div>
+                <ul class="optionWrap">
+                  <li class="option opt1st title" value="T">제목</li>
+                  <li class="option opt1st writer" value="W">작성자</li>
+                  <li class="option opt1st period" value="P">작성 기간</li>
+                  <li class="option opt1st body" value="B">본문 내용</li>
+                  <li class="option opt1st reply" value="R">댓글 내용</li>
+                </ul>
+              </div>
+            </div>
+            <div class="filter2nd default visible"> <!-- 검색조건 default-->
+              <form class="filter2ndForm">
+                <div class="keywordBox">
+                  <input type="text" placeholder="검색조건을 선택하세요." readonly>
+                </div>
+              </form>
+            </div>
+            <div class="filter2nd titleFilter"> <!-- 검색조건 : 제목 -->
+              <form class="filter2ndForm">
+                <div class="keywordBox">
+                  <input type="text" name="keywordText" placeholder="스터디 제목이나 포함 단어를 입력해주세요.">
+                </div>
+                <button type="button"  class="searchBtn">검색</button>
+              </form>
+            </div>
+            <div class="filter2nd writerFilter"> <!-- 검색조건 : 작성자명 -->
+              <form class="filter2ndForm">
+                <div class="keywordBox">
+                  <input type="text" name="keywordText" placeholder="작성자명을 입력해주세요." value="">
+                </div>
+                <button type="button" class="searchBtn">검색</button>
+              </form>
+            </div>
+            <div class="filter2nd periodFilter"> <!-- 검색조건 : 작성기간 -->
+              <form class="periodForm">
+                <div class="keywordBox">
+                  <input type="date" name="keywordText" class="periodStart" id=""periodStart placeholder="시작날짜 선택">
+                  <p> &nbsp; ~ &nbsp;</p>
+                  <input type="date" name="keywordText" class="periodEnd" placeholder="끝날자 선택">
+                </div>
+                <button type="button" class="searchPeriod">검색</button>
+              </form>
+            </div>
+            <div class="filter2nd contentFilter"> <!-- 검색조건 : 본문내용 -->
+              <form class="filter2ndForm">
+                <div class="keywordBox">
+                  <input type="text" name="keywordText" placeholder="본문 포함 단어를 검색하세요.">
+                </div>
+                <button type="button" class="searchBtn">검색</button>
+              </form>
+            </div>
+            <div class="filter2nd replyFilter"> <!-- 검색조건 : 댓글내용 -->
+              <form class="filter2ndForm">
+                <div class="keywordBox">
+                  <input type="text" name="keywordText" placeholder="댓글 포함 단어를 검색하세요.">
+                </div>
+                <button type="button" class="searchBtn">검색</button>
+              </form>
+            </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+  </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script th:inline="javascript">
+  let memberNumber = [[${session.memberNumber}]];
+</script>
+<script src="/js/header.js"></script>
+<script src="/js/login.js"></script>
+<script src="/js/board.js"></script>
+<script th:inline="javascript">
+  let postNumber = [[${postNumber}]];
+  $pageForm = $("form[name='pageForm']"); //board.js에 선언
+
+  let params = [[${pageDTO.criteria.listLink}]];
+  let pageNum = [[${criteria.pageNum}]];
+  let $pageNums = $(".pagination-link"); /* css 변화를 위함 */
+  let $searchBtn = $(".searchBtn");
+  let $inputKeyword = $pageForm.find("input[name=keyword]");
+  let memberNum = [[${session.memberNumber}]];
+
+  if(postNumber != null){
+    alert(postNumber + "번 게시글이 등록되었습니다.");
+  }
+
+  /* 페이징버튼 css : 해당 페이지 번호가 is-current */
+  $(document).ready(function(){
+    $pageNums.each(function(){
+      if($(this).text() == pageNum ){
+        $pageNums.not($(this)).remove("is-current");
+        $(this).addClass("is-current");
+      }
+    });
+  });
+
+  /* 페이징 버튼 클릭시 - 페이지 이동 */
+  $(".changePage").on("click", function(e){
+    e.preventDefault();
+    $pageForm.find("input[name=pageNum]").val($(this).attr("href"));
+    console.log($pageForm.find("input[name=type]").val());
+    console.log($pageForm.find("input[name=keyword]").val());
+    $pageForm.submit();
+  });
+
+  /* 게시글 상세보기로 이동 */
+  $("li#goRead").on("click",function(e){
+    e.preventDefault();
+    let postNumber = $(this).attr("href");
+    location.href = "/post/read" + params + "&postNumber=" + postNumber;
+  });
+
+  // 전체보기
+  $("a#viewAll").on("click", function(event){
+    event.preventDefault();
+    $pageForm.find("input[name=pageNum]").val(1);
+    $pageForm.find("input[name=type]").val("");
+    $pageForm.find("input[name=keyword]").val("");
+    $pageForm.submit();
+  });
+
+  // 카테고리 분류
+  $("a.searchCate").on("click", function(e){
+    e.preventDefault();
+    $pageForm.find("input[name=pageNum]").val(1);
+    $pageForm.find("input[name=type]").val($(this).attr('name'));
+    $pageForm.find("input[name=keyword]").val($(this).attr('value'));
+
+    // 내 작성글 보기
+    if($(this).attr('name')=='M'){
+      if(memberNum == null || memberNum == -1){
+        alert("로그인 후 이용해주세요.");
+        return;
+      }
+      $pageForm.find("input[name=keyword]").val(memberNum);
+    }
+
+    $pageForm.submit();
+  });
+
+
+  // 검색필터 - 검색
+  $searchBtn.each(function(){
+    $(this).on("click",function(){
+
+      let $keywordText = $(this).closest("form").find("input[name='keywordText']");
+
+      if(!$keywordText.val()){
+        alert("검색어를 입력하세요!");
+        return;
+      }
+
+      console.log($keywordText.val());
+      $inputKeyword.val($keywordText.val());
+
+      $pageForm.submit();
+    });
+  });
+
+  $(".searchReplyBtn").on("click",function() {
+    let $keywordText = $(this).closest("form").find("input[name='keywordText']");
+
+    if (!$keywordText.val()) {
+      alert("검색어를 입력해주세요.");
+      return;
+    }
+  });
+
+  // 검색필터 - 작성기간
+  $(".searchPeriod").on("click", function(e){
+    e.preventDefault();
+    let $periodStart =$(this).closest("form").find("input[class='periodStart']").val();
+    let $periodEnd = $(this).closest("form").find("input[class='periodEnd']").val();
+
+    if(!$periodStart || !$periodEnd){
+      alert("작성기간을 입력해주세요.");
+      return;
+    }
+
+    let $inputStart = $periodStart.replace(/-/g, "");
+    let $inputEnd = $periodEnd.replace(/-/g, "");
+
+    if(Number($inputStart)>=Number($inputEnd)){
+      alert("작성기간 형식이 올바르지 않습니다.");
+      return;
+    }
+
+    let $keyword = $inputStart + " " + $inputEnd;
+    $inputKeyword.val($keyword);
+
+    $pageForm.submit();
+  });
+
+  // 게시판 글쓰기
+  $(".postReg").on("click", function (e) {
+    e.preventDefault();
+    if (memberNum == null || memberNum == -1) {
+      alert("로그인 후 이용해주세요.");
+      return;
+    }
+    location.href = "/post/postRegister";
+  });
+
+</script>
+</html>

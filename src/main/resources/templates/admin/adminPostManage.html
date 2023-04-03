@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYDM | 관리자 센터</title>
+    <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+    <link href="/css/adminNav.css" rel="stylesheet">
+    <link href="/css/adminPostManage.css" rel="stylesheet">
+
+</head>
+<body>
+    <!-- 여기부터 adminNav -->
+    <header>
+        <div class="headerWrap">
+            <div class="headerLeft">
+                <div class="headerLogo">
+                    <img onclick="location.href='/jobPosting/approveWait'" src="/img/adminLogo.png">
+                </div>
+            </div>
+            <div class="headerRight">
+                <div class="headerIcon">
+                    <img src="/img/mainicon.png">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"></path></svg>
+                    <div class="iconHidden">
+                        <div onclick="location.href='/admin/login'"><p>로그아웃</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav>
+        <div class="navWrap">
+            <div class="navDiv">
+                <div class="menuParent studyParent">
+                    <p>스터디</p>
+                    <div class="menuArrow">
+                        <svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-8mmkcg"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg>
+                    </div>
+                </div>
+                <div class="menuChild studyChild" onclick="location.href='/study/getStudyList'">
+                    <p>스터디 관리</p>
+                </div>
+            </div>
+            <div class="navDiv">
+                <div class="menuParent postParent">
+                    <p>채용공고</p>
+                    <div class="menuArrow">
+                        <svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-8mmkcg"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg>
+                    </div>
+                </div>
+                <div class="menuChild postChild" onclick="location.href='/jobPosting/getJobList'">
+                    <p>채용공고 관리</p>
+                </div>
+            </div>
+            <div class="navDiv">
+                <div class="menuParent qnaParent">
+                    <p>문의게시판</p>
+                    <div class="menuArrow">
+                        <svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-8mmkcg"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg>
+                    </div>
+                </div>
+                <div class="menuChild qnaChild" onclick="location.href='/inquiry/getInqList'">
+                    <p>문의글 관리</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- 여기까지 adminNav -->
+    <section>
+        <div class="sectionWrap">
+            <div class="topTitle">  
+                <h1>채용공고 관리</h1>
+            </div>
+            <div class="searchWrap">
+                <form method="get" action="/jobPosting/getJobList" id="searchForm" th:object="${pageDTO}">
+                    <div class="searchContent" th:object="${criteria}">
+                        <div class="filter1st">
+                            <select class="selectBox" name="type">
+                                <div class="selectBox">
+                                    <div class="selected">
+                                        <option class="selectedValue" value="">검색조건 선택</option>
+                                        <div class="arrow">
+                                            <svg height="20" width="20" style="padding-right: 5px" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-8mmkcg"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg>
+                                        </div>
+                                    </div>
+                                    <div class="optionWrap">
+                                        <option class="option opt1st title" value="T" th:selected="*{type == 'T'}">제목</option>
+                                        <option class="option opt1st writer" value="W" th:selected="*{type == 'W'}">작성 기업</option>
+                                        <option class="option opt1st status" value="A" th:selected="*{type == 'A'}">승인</option>
+                                        <option class="option opt1st status" value="S" th:selected="*{type == 'S'}">대기</option>
+                                        <option class="option opt1st status" value="C" th:selected="*{type == 'C'}">체크</option>
+                                    </div>
+                                </div>
+                            </select>
+                        </div>
+                        <input class="search approve" id="keyword" type="text" th:field="*{keyword}" style="display: block">
+                        <button href="#" class="searchBtn">검색</button>
+                    </div>
+                </form>
+            </div>
+            <div class="tableWrap">
+                <table class="postList">
+                    <tr>
+                        <th width="8%" class="tableNum">NO</th>
+                        <th width="30%">공고 제목</th>
+                        <th width="13%">작성회사</th>
+                        <th width="13%">공고 종료일</th>
+                        <th width="13%">작성일</th>
+                        <th width="13%" class="status">상태</th>
+                        <th width="10%"></th>
+                    </tr>
+                    <th:block th:if="${!#lists.isEmpty(jobpostingList)}">
+                        <tr th:each="jobposting:${jobpostingList}">
+                            <li th:object="${jobposting}">
+                                <td class="tableNum" th:text="*{jobpostingNumber}"/>
+                                <td th:text="*{jobpostingTitle}"/>
+                                <td th:text="*{jobpostingCompanyName}"/>
+                                <td th:text="*{jobpostingApplicationStart}"/>
+                                <td th:text="*{jobpostingApplicationEnd}"/>
+                                <th:block th:if="*{jobpostingCheck == 1}">
+                                    <td class="status">체크</td>
+                                </th:block>
+                                <th:block th:unless="*{jobpostingCheck == 1}">
+                                    <td class="status" th:if="*{jobpostingApprove == 0}">대기</td>
+                                    <td class="status" th:unless="*{jobpostingApprove == 0}">승인</td>
+                                </th:block>
+                                <td><button type="button" class="viewBtn goRead" th:href="*{jobpostingNumber}">상세보기</button></td>
+                            </li>
+                        </tr>
+                    </th:block>
+                    <th:block th:unless="${!#lists.isEmpty(jobpostingList)}">
+                        <tr>
+                            <li >
+                                <td colspan="7" style="text-align: center">
+                                    작성된 채용 공고가 없습니다
+                                </td>
+                            </li>
+                        </tr>
+                    </th:block>
+                </table>
+            </div>
+            <div>
+                <div class="pageNumWrap">
+					<div class="numberBtns">
+                        <a type="button" class="changePage" th:if="${pageDTO.prev}" th:href="${pageDTO.startPage - 1}">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path fill-rule="evenodd" d="M15.5 5.5l-6 6.5 6 6.5L14 20l-7.5-8L14 4l1.5 1.5z" fill="#1a1a1a"></path>
+                                </svg>
+                            </span>
+                        </a>
+
+
+                        <th:block th:each="num:${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
+                            <a type="button" class="numBtn selected " th:text="${num}" th:if="${pageDTO.criteria.pageNum == num}"/>
+                            <div id="newInquiryButton">
+                                <a type="button" class="numBtn changePage" th:unless="${pageDTO.criteria.pageNum == num}" th:href="${num}">
+                                    <span id="helpNumber" th:text="${num}"/>
+                                </a>
+                            </div>
+                        </th:block>
+
+						<div id="newInquiryButton2"></div>
+                        <a type="button" class="changePage" th:if="${pageDTO.next}" th:href="${pageDTO.endPage + 1}">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path fill-rule="evenodd" d="M8.5 18.5l6-6.5-6-6.5L10 4l7.5 8-7.5 8-1.5-1.5z" fill="#1a1a1a"></path>
+                                </svg>
+                            </span>
+                        </a>
+					</div>
+				</div>
+            </div>
+            <form action="/jobPosting/getJobList" th:object="${criteria}" name="pageForm">
+                <input type="hidden" th:field="*{pageNum}">
+                <input type="hidden" th:field="*{amount}">
+                <input type="hidden" th:field="*{type}">
+                <input type="hidden" th:field="*{keyword}">
+            </form>
+        </div>
+    </section>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/adminNav.js"></script>
+<script src="/js/adminStudyManage.js"></script>
+<script th:inline="javascript">;
+let $pageForm = $(pageForm);
+let $serachForm = $(searchForm);
+let params = [[${pageDTO.criteria.listLink}]];
+
+if($(".selectBox option:selected").val().toString() == "S" || $(".selectBox option:selected").val().toString() == "A" || $(".selectBox option:selected").val().toString() == "C"){
+    $('input.search').css({'display':'none'});
+}
+
+$("button.goRead").on("click", function(e){
+    e.preventDefault();
+    location.href = "/jobPosting/adPostRead" + params + "&jobpostingNumber=" + $(this).attr("href");
+});
+
+$(".selectBox").on("click",function (e) {
+    e.preventDefault();
+    console.log($(".selectBox option:selected").val());
+    if(!($(".selectBox option:selected").val().toString() == "S") && !($(".selectBox option:selected").val().toString() == "A") && !($(".selectBox option:selected").val().toString() == "C")){
+        $('input.search').val("");
+        $('input.search').css({'display':'block'});
+    }else {
+        $('input.search').val("");
+        $('input.search').css({'display':'none'});
+
+    }
+});
+
+$("#searchForm button").on("click", function(e){
+    e.preventDefault();
+    if(!$serachForm.find("option:selected").val()){
+        alert("검색종류를 선택하세요");
+        return false;
+    }
+
+    if($(".selectBox option:selected").val().toString() == "T" || $(".selectBox option:selected").val().toString() == "W"){
+        if(!$serachForm.find("input[name='keyword']").val()){
+            alert("키워드를 입력하세요");
+            return false;
+        }
+    }else {
+        $('input.search').css({'display':'none'});
+    }
+
+
+    $serachForm.submit();
+});
+
+$("a.changePage").on("click", function(e){
+    e.preventDefault();
+    $pageForm.find("input[name='pageNum']").val($(this).attr("href"));
+    $pageForm.submit();
+});
+</script>
+</html>

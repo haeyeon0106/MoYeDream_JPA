@@ -1,0 +1,362 @@
+body {
+    margin : 0;
+    padding : 0;
+    font-family: "Spoqa Han Sans Neo",-apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+    width : 100%;
+    min-width: 600px;
+    background-color: #Fbfbfb;
+    color : #333;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul{
+    list-style: none;
+    padding: 0;
+}
+
+li{
+    list-style: none;
+}
+
+.sectionWrap{
+    width : 100%;
+    min-width: 800px;
+    height : 100%;
+    margin-top: 115px;
+    margin-bottom: 150px;
+    display: flex;
+    flex-direction: column;
+}
+
+.topTitle{
+    width: 77vw;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.topTitle h1{
+    display: flex;
+    align-items: center;
+    width: 77vw;
+    height : 80px;
+    box-sizing: border-box;
+    background-color: white;
+    border : 1px solid #d0d0d0;
+    font-weight: 500;
+    font-size: 30px;
+    padding-left : 30px;
+}
+
+.contentWrap{
+    width: 77vw;
+    box-sizing: border-box;
+    border : 1px solid #d0d0d0;
+    background-color: white;
+    padding : 50px;
+}
+
+.backBtn{
+    width : 1500px;
+}
+
+.qnaTitle{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 30px;
+}
+
+.writerWrap{
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #f2f2f2;
+}
+
+.writerWrap p{
+    font-size: 18px;
+    color: #333;
+    font-weight: 600;
+}
+
+.writerImg img{
+    width : 60px;
+    height : 60px;
+}
+
+.writerName {
+    margin: 0 15px;
+}
+
+.pnaIntro{
+    padding-left: 30px;
+    font-size: 25px;
+    font-weight: 600;
+    border-bottom: 3px solid #f2f2f2;
+}
+
+.pnaIntroDetail p{
+    padding-top: 20px;
+    font-size: 17px;
+}
+
+.qnaPrintWrap{
+    margin-top: 40px;
+}
+
+.qnaPrintWrap > div{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 77vw;
+    box-sizing: border-box;
+    background-color: white;
+    border : 1px solid #d0d0d0;
+    font-weight: 500;
+    font-size: 35px;
+    padding-left : 35px;
+    padding-right: 42px;
+    justify-content: flex-start;
+}
+
+.commentTitle{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width : 100%;
+    border-bottom : 3px solid #f2f2f2;
+}
+
+.commentTitle p{
+    font-size: 22px;
+    padding-left: 30px;
+}
+
+.commentPrintWrap{
+    width : 100%;
+    margin: 10px;
+}
+
+.commentPrintWrap li{
+    margin: 10px;
+}
+
+.commentModify{
+    width : fit-content;
+    height : fit-content;
+}
+
+.modifyInput{
+    display: none;
+    width : 1400px;
+    height : 250px;
+    box-sizing: border-box;
+    resize: none;
+    border: 1px solid #d0d0d0;
+    outline: none;
+    font-family: inherit;
+    font-size: 16px;
+    padding: 15px;
+}
+
+.commentModify>div{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modifyOk{
+    display: none;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 10px;
+}
+
+.modifyOk:hover{
+    background-color: rgb(0 0 0 / 10%);
+}
+
+.active{
+    display: block;
+}
+
+.hidden{
+    display: none;
+}
+
+.commentManageBtn{
+    width: 100%;
+}
+
+.commentManageBtn > div{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 15px;
+    padding-bottom: 20px;
+}
+
+.commentManageBtn button{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.commentManageBtn button:hover{
+    filter: brightness(90%);
+}
+
+.qnaCommentWrap{
+    margin-top: 40px;
+    margin-bottom: 200px;
+}
+
+.qnaCommentWrap > div{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 77vw;
+    box-sizing: border-box;
+    background-color: white;
+    border : 1px solid #d0d0d0;
+    font-weight: 500;
+    font-size: 35px;
+    padding-left : 30px;
+    padding-right: 20px;
+    justify-content: flex-start;
+}
+
+.commentInputTitle{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width : 100%;
+}
+
+.commentInputTitle p{
+    font-size: 22px;
+    padding-left: 30px;
+}
+
+.commentPrint{
+    width: 100%;
+}
+
+.commentPrint p {
+    width : 100%;
+    font-size: 16px;
+    padding-left: 30px;
+}
+
+.commentInput{
+    width : fit-content;
+    height : fit-content;
+}
+
+.qnaCommentWrap form{
+    width: 100%;
+    padding-left: 50px;
+    padding-right: 20px;
+}
+
+button.answer{
+    margin-right: -15px;
+    margin: 15px;
+    font-weight: bold;
+    width: 95px;
+    height: 33px;
+    float: right;
+    border: 1px solid #ffe579;
+    background-color: #ffe579;
+    border-radius: 6px;
+    cursor: pointer;
+}
+button.answer:hover{
+    filter : brightness(90%);
+}
+
+button.deleteBtn{
+    margin: 15px;
+    font-weight: bold;
+    width: 95px;
+    height: 33px;
+    float: right;
+    border: 1px solid #ffe579;
+    background-color: #ffe579;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.commentInput textarea{
+    width : 72vw;
+    height : 250px;
+    box-sizing: border-box;
+    resize: none;
+    border: 1px solid #d0d0d0;
+    outline: none;
+    font-family: inherit;
+    font-size: 16px;
+}
+
+.btnWrap{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.btnWrap div{
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 1500px;
+    height : 80px;
+    box-sizing: border-box;
+    background-color: white;
+    font-weight: 500;
+    font-size: 40px;
+    padding-left : 30px;
+    padding-right: 20px;
+    justify-content: flex-end;
+}
+
+.btnWrap button{
+    outline: none;
+    border: none;
+    width : 60px;
+    height : 30px;
+    font-size: 15px;
+    margin-right: 20px;
+    border-radius: 5px;
+    font-family: inherit;
+    font-weight: 450;
+}
+
+.btnWrap button:hover{
+    filter : brightness(90%);
+}
+.confirm{
+    background-color: #ffe579;
+    cursor: pointer;
+}
+
+.confirm:hover{
+    filter : brightness(90%);
+}
+

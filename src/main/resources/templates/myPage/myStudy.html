@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoYeoDream!</title>
+
+    <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <link rel="stylesheet" href="/css/myStudy.css">
+</head>
+<body>
+    <div id="root">
+        <header th:replace="~{/fragments/header::header}"></header>
+        <!-- 헤더 부분 ↑ -->
+
+
+        <section class="category-box">
+            <a th:href="@{/member/read}">
+                <div class="back">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" color="808080" cursor="pointer" height="30" width="30" xmlns="http://www.w3.org/2000/svg" style="color: rgb(128, 128, 128);">
+                        <path d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path>
+                    </svg>
+                </div>
+            </a>
+            <h2 class="page-title">내 스터디</h2>
+
+            <ul class="category-box2">
+                <li class="select-category select-subject my-create">
+                    내가 만든
+                    <div class="yellow-line"></div>
+                </li>
+                <!--<li class="select-category my-activity">
+                    참여 중인
+                </li>-->
+                <!--<li class="select-category my-favorite">
+                    찜 스터디
+                </li>
+                <li class="select-category my-waiting">
+                    신청 대기
+                </li>-->
+            </ul>
+        </section>
+
+        <main class="main-box my-create-box" > <!-- 내가 만든 -->
+            <!-- 승인목록 -->
+            <div class="myCreateChildren">
+                <span></span>
+                <p>승인 목록</p>
+            </div>
+            <div class="main-box2">
+
+
+                <!-- 스터디가 없을 때 사용 -->
+                <div class="empty-study" th:if="${selectMyStudy1 == 0}">
+                    <h4>해당 스터디가 없습니다.</h4>
+                </div>
+
+                <ul class="main-box3" th:unless="${selectMyStudy1 == 0}">
+
+
+                    <th:block th:each="myStudy:${myStudyList}">
+
+                    <li class="study-box study-box2"  th:if="${myStudy.studyApprove == 1}" th:object="${myStudy}">
+                        <a th:href="@{/study/read(studyNumber=*{studyNumber})}">
+                            <div class="study-schedule">
+                                <p class="study-scheduleTitle">시작 예정일 |</p>
+                                <p class="study-start"></p>
+                            </div>
+                            <h1 class="study-title" th:text="*{studyTitle}"></h1>
+                            <div class="study-detail">
+                                <span class="study-hashtag" th:text="*{studyCategory}"></span>
+                                <span class="study-personnel" th:text="*{studyPersonnel}"></span>
+                            </div>
+
+                            <ul class="study-void-box">
+                            </ul>
+
+                            <section class="study-info">
+                                <div class="avatar-user">
+                                    <div class="avatar-userName" th:text="*{memberNickname}"></div>
+                                </div>
+                                <div class="study-viewsAndComment">
+                                    <div class="study-infoItem">
+                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" color="#999999" height="28" width="28" xmlns="http://www.w3.org/2000/svg" style="color: rgb(153, 153, 153);">
+                                            <path d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 0 0 0 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"></path>
+                                        </svg>
+                                        <p th:text="*{studyViews}"></p>
+                                    </div>
+                                    <div class="study-infoItem">
+                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" color="#999999" height="20" width="20" xmlns="http://www.w3.org/2000/svg" style="color: rgb(153, 153, 153);">
+                                            <path d="M256 32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26S14.4 480 24 480c61.5 0 110-25.7 139.1-46.3C192 442.8 223.2 448 256 448c141.4 0 256-93.1 256-208S397.4 32 256 32zm0 368c-26.7 0-53.1-4.1-78.4-12.1l-22.7-7.2-19.5 13.8c-14.3 10.1-33.9 21.4-57.5 29 7.3-12.1 14.4-25.7 19.9-40.2l10.6-28.1-20.6-21.8C69.7 314.1 48 282.2 48 240c0-88.2 93.3-160 208-160s208 71.8 208 160-93.3 160-208 160z"></path>
+                                        </svg>
+                                        <p th:text="*{studyCommentTotal}"></p>
+                                    </div>
+                                </div>
+                            </section>
+                        </a>
+                    </li>
+
+                    </th:block>
+
+                </ul>
+
+            </div>
+            <!-- 대기목록 -->
+            <div class="myCreateChildren">
+                <span></span>
+                <p>대기 목록</p>
+            </div>
+            <div class="main-box2">
+
+                <!-- 스터디가 없을 때 사용 -->
+                <div class="empty-study" th:if="${selectMyStudy0 == 0}">
+                    <h4>해당 스터디가 없습니다.</h4>
+                </div>
+
+                <ul class="main-box3" th:unless="${selectMyStudy0 == 0}">
+
+
+                    <th:block th:each="myStudy:${myStudyList}">
+
+                        <li class="study-box study-box2" th:unless="${myStudy.studyApprove == 1}" th:object="${myStudy}">
+                            <a th:href="@{/study/read(studyNumber=*{studyNumber})}">
+                                <div class="study-schedule">
+                                    <p class="study-scheduleTitle">시작 예정일 |</p>
+                                    <p class="study-start"></p>
+                                </div>
+                                <h1 class="study-title" th:text="*{studyTitle}"></h1>
+                                <div class="study-detail">
+                                    <span class="study-hashtag" th:text="*{studyCategory}"></span>
+                                    <span class="study-personnel" th:text="*{studyPersonnel}"></span>
+                                </div>
+
+                                <ul class="study-void-box">
+                                </ul>
+
+                                <section class="study-info">
+                                    <div class="avatar-user">
+                                        <div class="avatar-userName" th:text="*{memberNickname}"></div>
+                                    </div>
+                                    <div class="study-viewsAndComment">
+                                        <div class="study-infoItem">
+                                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" color="#999999" height="28" width="28" xmlns="http://www.w3.org/2000/svg" style="color: rgb(153, 153, 153);">
+                                                <path d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 0 0 0 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"></path>
+                                            </svg>
+                                            <p th:text="*{studyViews}"></p>
+                                        </div>
+                                        <div class="study-infoItem">
+                                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" color="#999999" height="20" width="20" xmlns="http://www.w3.org/2000/svg" style="color: rgb(153, 153, 153);">
+                                                <path d="M256 32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26S14.4 480 24 480c61.5 0 110-25.7 139.1-46.3C192 442.8 223.2 448 256 448c141.4 0 256-93.1 256-208S397.4 32 256 32zm0 368c-26.7 0-53.1-4.1-78.4-12.1l-22.7-7.2-19.5 13.8c-14.3 10.1-33.9 21.4-57.5 29 7.3-12.1 14.4-25.7 19.9-40.2l10.6-28.1-20.6-21.8C69.7 314.1 48 282.2 48 240c0-88.2 93.3-160 208-160s208 71.8 208 160-93.3 160-208 160z"></path>
+                                            </svg>
+                                            <p th:text="*{studyCommentTotal}"></p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </a>
+                        </li>
+
+                    </th:block>
+
+                </ul>
+            </div>
+
+        </main>
+<!--        <main class="main-box my-activity-box"> &lt;!&ndash; 참여 중인-->
+<!--        <div class="main-box2">-->
+<!--            <ul class="main-box3">-->
+<!--                <div class="empty-study">-->
+<!--                    <h4>해당 스터디가 없습니다.</h4>-->
+<!--                </div>-->
+
+<!--            </ul>-->
+<!--        </div>-->
+<!--        </main>-->
+<!--        <main class="main-box my-favorite-box"> &lt;!&ndash; 찜 스터디-->
+<!--        <div class="main-box2">-->
+<!--            <ul class="main-box3">-->
+<!--                <div class="empty-study">-->
+<!--                    <h4>해당 스터디가 없습니다.</h4>-->
+<!--                </div>-->
+
+<!--            </ul>-->
+<!--        </div>-->
+<!--        </main>-->
+<!--        <main class="main-box my-waiting-box"> &lt;!&ndash; 신청 대기-->
+<!--        <div class="main-box2">-->
+<!--            <ul class="main-box3">-->
+<!--                <div class="empty-study">-->
+<!--                    <h4>해당 스터디가 없습니다.</h4>-->
+<!--                </div>-->
+
+<!--            </ul>-->
+<!--        </div>-->
+<!--        </main>-->
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script th:inline="javascript">
+    let memberNumber = [[${session.memberNumber}]];
+</script>
+<script src="/js/header.js"></script>
+<script src="/js/login.js"></script>
+<script th:inline="javascript">
+
+    let myStudyList = [[${myStudyList}]]
+
+    $(document).ready(function() {
+
+        for(let i in myStudyList) {
+            if (myStudyList[i].studyCategory == "culture") {
+                $(this).find($("span.study-hashtag").eq(i)).text("#문화/예술");
+            } else if (myStudyList[i].studyCategory == "sports") {
+                $(this).find($("span.study-hashtag").eq(i)).text("#스포츠/레저");
+            } else if (myStudyList[i].studyCategory == "computer") {
+                $(this).find($("span.study-hashtag").eq(i)).text("#컴퓨터/프로그래밍");
+            } else if (myStudyList[i].studyCategory == "language") {
+                $(this).find($("span.study-hashtag").eq(i)).text("#외국어/토익/토플");
+            } else if (myStudyList[i].studyCategory == "humanities") {
+                $(this).find($("span.study-hashtag").eq(i)).text("#인문/과학");
+            } else if (myStudyList[i].studyCategory == "economy") {
+                $(this).find($("span.study-hashtag").eq(i)).text("#경제/금융");
+            } else if (myStudyList[i].studyCategory == "politics") {
+                $(this).find($("span.study-hashtag").eq(i)).text("#정치/사회");
+            } else if (myStudyList[i].studyCategory == "certificate") {
+                $(this).find($("span.study-hashtag").eq(i)).text("#자격증");
+            } else if (myStudyList[i].studyCategory == "publicOfficial") {
+                $(this).find($("span.study-hashtag").eq(i)).text("#공무원");
+            } else if (myStudyList[i].studyCategory == "employment") {
+                $(this).find($("span.study-hashtag").eq(i)).text("#취업/면접");
+            }
+        }
+
+        for(let i in myStudyList) {
+            if (myStudyList[i].studyPersonnel == "none") {
+                $(this).find($("span.study-personnel").eq(i)).text("#인원 미정");
+            } else if (myStudyList[i].studyPersonnel == "one") {
+                $(this).find($("span.study-personnel").eq(i)).text("#1명");
+            } else if (myStudyList[i].studyPersonnel == "two") {
+                $(this).find($("span.study-personnel").eq(i)).text("#2명");
+            } else if (myStudyList[i].studyPersonnel == "three") {
+                $(this).find($("span.study-personnel").eq(i)).text("#3명");
+            } else if (myStudyList[i].studyPersonnel == "four") {
+                $(this).find($("span.study-personnel").eq(i)).text("#4명");
+            } else if (myStudyList[i].studyPersonnel == "five") {
+                $(this).find($("span.study-personnel").eq(i)).text("#5명");
+            } else if (myStudyList[i].studyPersonnel == "six") {
+                $(this).find($("span.study-personnel").eq(i)).text("#6명");
+            } else if (myStudyList[i].studyPersonnel == "seven") {
+                $(this).find($("span.study-personnel").eq(i)).text("#7명");
+            } else if (myStudyList[i].studyPersonnel == "eight") {
+                $(this).find($("span.study-personnel").eq(i)).text("#8명");
+            } else if (myStudyList[i].studyPersonnel == "nine") {
+                $(this).find($("span.study-personnel").eq(i)).text("#9명");
+            } else if (myStudyList[i].studyPersonnel == "tenUp") {
+                $(this).find($("span.study-personnel").eq(i)).text("#10명 이상");
+            }
+        }
+
+        const $result = $(".avatar-user");
+
+        for(let i in myStudyList) {
+            $(this).find($("p.study-start").eq(i)).text(dateFormat(myStudyList[i].studyStart));
+
+            //첨부파일
+            if(myStudyList[i].memberProfile != null) {
+                $(this).find($(".avatar-user").eq(i)).prepend("<img class=\"avatar-userImg avatar-small\" src='/file/displayProfile?path=" + myStudyList[i].memberProfile + "'>");
+            }
+            else {
+                $(this).find($(".avatar-user").eq(i)).prepend("<img class=\"avatar-userImg avatar-small\" src='https://hola-post-image.s3.ap-northeast-2.amazonaws.com/default.PNG'>");
+            }
+        }
+
+
+    });
+
+    function dateFormat(format) {
+        let date = new Date(format);
+        return date.getFullYear() + "-" + ((date.getMonth() + 1) > 9 ? (date.getMonth() + 1).toString() : "0" + (date.getMonth() + 1)) + "-" + (date.getDate() > 9 ? date.getDate().toString() : "0" + date.getDate().toString());
+    }
+
+</script>
+<script src="/js/myStudy.js"></script>
+</html>

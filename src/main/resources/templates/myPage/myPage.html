@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoYeoDream!</title>
+
+    <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <link rel="stylesheet" href="/css/myPage.css">
+</head>
+<body style="width: auto;">
+	<div>
+		<div id="wrapper">
+			<div class="wrapper2">
+                <header th:replace="~{/fragments/header::header}"></header>
+                <!-- 헤더 부분 ↑ -->
+
+				<div class="kgBzKM" th:object="${member}">
+					<div class="gqgKCQ">
+
+						<div class="iTujEl">
+							<aside class="ipCzuu">
+								<section class="LaCvk cgWehN">
+									<h4 class="jdPAHA dyWeXC">내 정보</h4>
+									<a class="eYKbXT" th:href="@{/member/myProfile}">
+										<div class="cqZvVN gkiCmL">프로필 수정</div>
+									</a>
+                                    <a class="eYKbXT" onclick="logout()">
+										<div class="cqZvVN gkiCmL">로그아웃</div>
+									</a>
+								</section>
+								<section class="LaCvk cgWehN fXhCUc">
+									<h4 class="jdPAHA dyWeXC">메뉴</h4>
+									<a class="eYKbXT" th:href="@{/member/myStudy}">
+										<div class="cqZvVN gkiCmL">내 스터디</div>
+									</a>
+									<a class="eYKbXT" th:href="@{/member/myPost}">
+										<div class="cqZvVN gkiCmL">내 게시글</div>
+									</a>
+									<a class="eYKbXT" th:href="@{/member/myComment}">
+										<div class="cqZvVN gkiCmL">내 댓글</div>
+									</a>
+									
+								</section>
+							</aside>
+
+
+							<div class="section-wrap">
+
+								<div class="profile-img">
+                                    <div>  
+                                        <div class="profile-img2">
+                                            <!--<img class="profile-img3" src="https://hola-post-image.s3.ap-northeast-2.amazonaws.com/default.PNG">-->
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!--<div>
+                                    <div class="my-info-title">
+                                        <div class="my-info-title2">
+                                            <div class="my-info-title3">
+                                                <span th:if="*{memberIntroduction == null}" >한 줄 소개가 비어있습니다.</span>
+                                                <span th:unless="*{memberIntroduction == null}" th:text="*{memberIntroduction}"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>-->
+
+                                <div class="void-block"></div>
+
+                                <div class="my-info-box">
+                                    <h3 class="profile-title">My Profile</h3>
+                                    
+                                    <div class="void-line">
+                                        <div class="void-line2">
+                                            <div class="void-line3"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="my-info">
+                                        <div class="my-info2">
+                                            <span style="font-size: 18px;">&#9997;&nbsp;</span>
+                                            <span th:text="*{memberNickname}"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="my-info">
+                                        <div class="my-info2">
+                                            <span style="font-size: 19px;">&#128236;&nbsp;</span>
+                                            <span th:text="*{memberEmail}"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="my-info-box my-info-box2">
+                                    <h3 class="profile-title">관심 분야</h3>
+                                    
+                                    <div class="void-line">
+                                        <div class="void-line2">
+                                            <div class="void-line3"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="all-my-info">
+
+                                        <div class="my-info" th:if="*{memberInterests == null}">
+                                            <div class="my-info2 noCategory">
+                                                프로필 수정에서 관심분야를 선택해주세요
+                                            </div>
+                                        </div>
+
+                                        <ul style="list-style: none" th:unless="*{memberInterests == null}">
+
+                                            <li class="cateBlockk culture"><div class="my-info"><div class="my-info2">
+                                                <span class="cateListItem"></span>
+                                                <span>문화 • 예술</span>
+                                            </div></div></li>
+                                            <li class="cateBlockk sports"><div class="my-info"><div class="my-info2">
+                                                <span class="cateListItem"></span>
+                                                <span>스포츠 • 레저</span>
+                                            </div></div></li>
+                                            <li class="cateBlockk programming"><div class="my-info"><div class="my-info2">
+                                                <span class="cateListItem"></span>
+                                                <span>컴퓨터 • 프로그래밍</span>
+                                            </div></div></li>
+                                            <li class="cateBlockk foreign"><div class="my-info"><div class="my-info2">
+                                                <span class="cateListItem"></span>
+                                                <span>외국어 • 토익 • 토플</span>
+                                            </div></div></li>
+                                            <li class="cateBlockk science"><div class="my-info"><div class="my-info2">
+                                                <span class="cateListItem"></span>
+                                                <span>인문 • 과학</span>
+                                            </div></div></li>
+                                            <li class="cateBlockk finance"><div class="my-info"><div class="my-info2">
+                                                <span class="cateListItem"></span>
+                                                <span>경제 • 금융</span>
+                                            </div></div></li>
+                                            <li class="cateBlockk politics"><div class="my-info"><div class="my-info2">
+                                                <span class="cateListItem"></span>
+                                                <span>정치 • 사회</span>
+                                            </div></div></li>
+                                            <li class="cateBlockk certificate"><div class="my-info"><div class="my-info2">
+                                                <span class="cateListItem"></span>
+                                                <span>자격증</span>
+                                            </div></div></li>
+                                            <li class="cateBlockk officiary"><div class="my-info"><div class="my-info2">
+                                                <span class="cateListItem"></span>
+                                                <span>공무원</span>
+                                            </div></div></li>
+                                            <li class="cateBlockk employment"><div class="my-info"><div class="my-info2">
+                                                <span class="cateListItem"></span>
+                                                <span>취업 • 면접</span>
+                                            </div></div></li>
+
+                                        </ul>
+                                        
+                                    </div>
+
+
+                                </div>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script th:inline="javascript">
+    let memberNumber = [[${session.memberNumber}]];
+</script>
+<script src="/js/header.js"></script>
+<script src="/js/login.js"></script>
+<script th:inline="javascript">
+    // 받아올 카테고리
+    let memberInterests = [[${member.memberInterests}]];
+
+    $(document).ready(function() {
+        if(memberInterests != null) {
+            memberInterestsArr = memberInterests.split(',');
+
+            /*관심 분야 받아오기*/
+            for (let i in memberInterestsArr){
+                if(memberInterestsArr[i] == 'culture'){
+                    $(".culture").show();
+                }else if(memberInterestsArr[i] == 'sports'){
+                    $(".sports").show();
+                }else if(memberInterestsArr[i] == 'programming'){
+                    $(".programming").show();
+                }else if(memberInterestsArr[i] == 'foreign'){
+                    $(".foreign").show();
+                }else if(memberInterestsArr[i] == 'science'){
+                    $(".science").show();
+                }else if(memberInterestsArr[i] == 'finance'){
+                    $(".finance").show();
+                }else if(memberInterestsArr[i] == 'politics'){
+                    $(".politics").show();
+                }else if(memberInterestsArr[i] == 'certificate'){
+                    $(".certificate").show();
+                }else if(memberInterestsArr[i] == 'officiary'){
+                    $(".officiary").show();
+                }else if(memberInterestsArr[i] == 'employment'){
+                    $(".employment").show();
+                }
+            }
+        }
+    });
+
+    let filesLeaderProfile = [[${member.memberProfile}]];
+    const $resultLocation = $(".profile-img2");
+
+    $(document).ready(function() {
+        //첨부파일
+        if (filesLeaderProfile != null) {
+            $resultLocation.prepend("<img class=\"profile-img3\" src='/file/displayProfile?path=" + filesLeaderProfile + "'>");
+        } else {
+            $resultLocation.prepend("<img class=\"profile-img3\" src='https://hola-post-image.s3.ap-northeast-2.amazonaws.com/default.PNG'>");
+        }
+    });
+
+</script>
+</html>

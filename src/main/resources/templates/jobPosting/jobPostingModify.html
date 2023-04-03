@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoYeoDream!</title>
+    <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/jobPostingCreate.css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+</head>
+<body>
+<header th:replace="~{/fragments/header::header}"></header>
+<!-- 헤더 부분 ↑ -->
+<div class="main-container" th:object="${jobPosting}">
+    <form method="post" action="/jobPosting/modify" id="createForm">
+        <section class="top">
+            <div class="study-info-title">
+                <span>1</span>
+                <h2>채용 공고를 하나씩 채워주세요.</h2>
+            </div>
+            <input type="text" style="display: none" th:field="*{jobpostingNumber}">
+            <ul class="study-info-list">
+                <li class="study-info-item">
+                    <label for="enterprise-input">기업 소개</label>
+                    <div class="input">
+                        <input type="text" name="jobpostingCompanyName" id="enterprise-input" th:value="*{jobpostingCompanyName}" placeholder="기업 이름을 입력해주세요!">
+                        <label for="enterprise-img">
+                            <!--<img src="/img/fileImg.png">-->
+                            <input type="hidden" name="jobpostingCompanyLogo" id="job-logo-name">
+                        </label>
+                        <input type="file" name="file" id="enterprise-img" accept="image/*">
+                    </div>
+                </li>
+                <li class="study-info-item">
+                    <label for="start-date">접수 기간</label>
+                    <div class="input">
+                        <input type="date" name="jobpostingApplicationStart" id="start-date" th:value="*{jobpostingApplicationStart}">
+                        <h3>~</h3>
+                        <input type="date" name="jobpostingApplicationEnd" id="end-date" th:value="*{jobpostingApplicationEnd}">
+                    </div>
+                </li>
+            </ul>
+            <ul class="study-info-list">
+                <li class="study-info-item">
+                    <label for="employment-time-input">채용 형태</label>
+                    <div class="input">
+                        <input type="text" name="jobpostingCareer" id="employment-time-input" th:value="*{jobpostingCareer}" placeholder="신입 / 경력">
+                        <input type="text" name="jobpostingWorktype" id="employment-regular-input" th:value="*{jobpostingWorktype}" placeholder="정규직 / 비정규직 / 인턴">
+                    </div>
+                </li>
+                <li class="study-info-item">
+                    <label for="qualification-select">지원 자격</label>
+                    <div class="select">
+                        <select name="jobpostingEligibility" id="qualification-select">
+                            <option value="none">학력 무관</option>
+                            <option value="college">2·3년제 졸업 이상</option>
+                            <option value="university">4년제 졸업 이상</option>
+                        </select>
+                    </div>
+                </li>
+            </ul>
+            <ul class="study-info-list">
+                <li class="study-info-item">
+                    <label for="region-input">근무 지역</label>
+                    <div class="input">
+                        <input type="text" name="jobpostingArea" id="region-input" placeholder="서울" th:value="*{jobpostingArea}">
+                    </div>
+                </li>
+                <li class="study-info-item">
+                    <label for="site-input">기업 사이트</label>
+                    <div class="input">
+                        <input type="text" name="jobpostingCompanyUrl" id="site-input" placeholder="사이트 url을 입력해주세요!" th:value="*{jobpostingCompanyUrl}">
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <section class="bottom">
+            <div class="study-title">
+                <span>2</span>
+                <h2>채용 공고에 대해 자세히 소개해주세요.</h2>
+            </div>
+            <section class="study-title-input">
+                <label for="title-input">제목</label>
+                <input type="text" name="jobpostingTitle" id="title-input" placeholder="글 제목을 입력해주세요!" th:value="*{jobpostingTitle}">
+                <div class="summernote"></div>
+                <input type="hidden" class="jobposting-content" name="jobpostingContent">
+            </section>
+            <section class="study-button">
+                <button class="cancel" th:href="@{/jobPosting/read(jobpostingNumber=*{jobpostingNumber})}">취소</button>
+                <button type="button" class="register">등록</button>
+            </section>
+        </section>
+    </form>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+<script th:inline="javascript">
+    let memberNumber = [[${session.memberNumber}]];
+</script>
+<script src="/js/jobPostingModify.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/login.js"></script>
+<script th:inline="javascript">
+
+    let jobpostingContent = [[${jobPosting.jobpostingContent}]];
+
+    let uploadBoolean = 0;
+
+    $(document).ready(function () {
+        $(".summernote").append(jobpostingContent);
+        $('.summernote').summernote({
+            height: 523,
+            maxHeight: 523,
+            minHeight: 523,
+            lang: "ko-KR",
+            placeholder: '내용을 작성해주세요!',
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ],
+            callbacks: {
+                onImageUpload: function(files) {
+                    uploadImage(files[0], this);
+                }
+            }
+        });
+    });
+
+    let files = [[${jobPosting.jobpostingCompanyLogo}]];
+    const $result = $("label[for='enterprise-img']");
+
+    //첨부파일
+    if(files != null) {
+        $result.prepend("<img src='/file/displayCompanyLogo?path=" + files + "'>");
+    }
+    else {
+        $result.prepend("<img src='/img/fileImg.png'>");
+    }
+
+    const imgThumbnail2 = document.querySelector("label[for='enterprise-img'] img");
+    const imgFile2 = document.querySelector("input[id='enterprise-img']");
+
+    let logoName2;
+
+    imgFile2.addEventListener("change", function(event) {
+        let reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        reader.onload = function(event) {
+            let url = event.target.result;
+            if(url.includes("image")) {
+                imgThumbnail2.src = url;
+            }
+            else {
+                imgThumbnail2.src = "https://hola-post-image.s3.ap-northeast-2.amazonaws.com/default.PNG";
+            }
+        }
+
+        let formData2 = new FormData();
+        let logoInput2 = $("input[type='file']");
+        let logoFiles2 = logoInput2[1].files;
+        console.log(logoFiles2[0]);
+
+        logoName2 = $("input[type='file']")[1].files[0].name;
+
+        formData2.append("file", logoFiles2[0]);
+
+        $.ajax({
+            url: "/file/uploadCompanyLogo",
+            type: "POST",
+            data: formData2,
+            processData: false,
+            contentType: false,
+            success: function(fileName) {
+                $("#job-logo-name").val(fileName);
+                uploadBoolean = 1;
+            }
+        });
+    });
+
+    if(uploadBoolean == 0){
+        $("#job-logo-name").val([[${jobPosting.jobpostingCompanyLogo}]]);
+    }
+</script>
+</html>

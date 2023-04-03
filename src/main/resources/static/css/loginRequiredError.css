@@ -1,0 +1,47 @@
+.mainSession{
+    text-align: center;
+}
+
+.errorLogo{
+    margin-top: 150px;
+}
+
+.errorLogo img{
+    height: 122px;
+}
+
+.errorBox1{
+    color: gray;
+    font-size: 13px;
+    margin-top: 42px;
+}
+
+.errorBox2{
+    font-weight: bold;
+    margin-top: 5px;
+    font-size: 19px;
+}
+
+.goMainBox{
+    margin-top: 80px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+span.goMain{
+    margin: 0 auto;
+}
+
+span.goMain a:hover{
+    color: gold;
+    cursor: pointer;
+}
+
+span.goLogin{
+    margin-right: -13px;
+}
+
+span.goLogin button:hover{
+    color: gold;
+    cursor: pointer;
+}

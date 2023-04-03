@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MoYeoDream!</title>
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/css/error.css">
+</head>
+<body>
+<div class="mainSession">
+    <div class="errorLogo" onclick="location.href = '/main/index'">
+        <img src="/img/logo.png">
+    </div>
+    <div class="errorBox1">
+        <span class="errorText"><!--잘못된 접근--></span>
+    </div>
+    <div class="errorBox2">
+        <span class="errorText2">예기치 못한 오류로 인해 해당 요청을 처리하지 못했습니다.</span>
+    </div>
+    <div class="goMainBox">
+        <span class="goMain"><a onclick="location.href = '/main/index'">메인화면으로 이동하기</a></span>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/login.js"></script>
+</html>

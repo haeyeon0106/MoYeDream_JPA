@@ -1,0 +1,120 @@
+body {
+    margin : 0;
+    padding : 0;
+    font-family: "Spoqa Han Sans Neo",-apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+    background-color: #Fbfbfb;
+}
+
+input {
+    border : none;
+    outline: none;
+    font-family: inherit;
+}
+
+button {
+    border : none;
+    outline:  none;
+    font-family: inherit;
+}
+
+.loginPage{
+    width : 100vw;
+    height : 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginBox{
+    width: 300px;
+    height : fit-content;
+    margin-bottom: 300px;
+}
+
+.logoBox{
+    width : 300px;
+    height : fit-content;
+    margin: 20px 0;
+}
+
+.logoBox img{
+    width : 100%;
+    height : fit-content;
+}
+
+.formBox{
+    width : 300px;
+    height: fit-content;
+}
+
+.adminId, .adminPw{
+    width: 100%;
+    height : 50px;
+    margin: 0;
+    box-sizing: border-box;
+    border: 1px solid ;
+    border-color: #dbdbdb;
+    background-color: #fff;
+    box-sizing: border-box;
+    align-content: center;
+    padding-left: 20px;
+    font-size: 15px;
+    color : #333;
+}
+
+.formBox input:hover{
+    background-color: #Fbfbfb;
+}
+
+.adminId {
+    border-radius: 4px 4px 0 0;
+    border-bottom: none;
+}
+
+.adminPw{
+    border-radius: 0 0 4px 4px;
+}
+
+.loginBtn{
+    width : 100%;
+    margin: 20px 0;
+    height: 52px;
+    box-sizing: border-box;
+    background-color: #ffe579;
+    border-color: #ffe579;
+    outline: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    color : #333;
+    cursor: pointer;
+}
+
+.loginBtn:hover{
+    filter : brightness(95%);
+}
+
+.errorMsg{
+    width: 100%;
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: -10px;
+    padding-left: 15px;
+    color : #f77;
+}
+
+.forgetBox{
+    width : 100%;
+    text-align: center;
+}
+
+.forgetBox p{
+    text-align: center;
+    color: #757575;
+    margin: 0;
+    cursor : pointer;
+    font-size: 15px;
+}

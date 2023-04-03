@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MoYeoDream!</title>
+  <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet" href="/css/inquiryList.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/header.css">
+  <link rel="stylesheet" type="text/css" href="/css/login.css">
+</head>
+<body>
+  <header th:replace="~{/fragments/header::header}"></header>
+  <!-- 헤더 부분 ↑ -->
+  <div class="main-container">
+    <section class="category-box" style="border-bottom: 2px solid #d1d1d1">
+      <h2 class="page-title">문의하기</h2>
+      <button class="new-inquiry" th:if="${session.memberNumber} != null"><a href="/inquiry/inquiryCreate">새 글 쓰기</a></button>
+    </section>
+    <section class="board-list-container">
+
+      <ul class="board-list">
+
+        <th:block th:each="inquiry:${inquiryList}">
+
+          <li class="board-container" th:object="${inquiry}">
+            <a th:href="@{/inquiry/read(inquiryNumber=*{inquiryNumber})}">
+              <div class="board">
+                <div class="board_info">
+                  <div class="board-title">
+                    <h3 class="title_text" th:text="*{inquiryTitle}"></h3>
+                  </div>
+
+                  <!--<p class="board_body"></p>-->
+
+                  <div class="board_info-footer">
+                    <span th:text="*{memberNickname}"></span>
+                    <span>&nbsp;&nbsp;</span>
+                    <span th:if="*{inquiryRegisterDate == inquiryUpdateDate}" th:text="*{inquiryRegisterDate}"></span>
+                    <span th:unless="*{inquiryRegisterDate == inquiryUpdateDate}" th:text="*{inquiryUpdateDate} + ' (수정)'"></span>
+                  </div>
+                </div>
+                <div class="board_addInfo">
+                  <div class="board_comment">
+                    <span class="comment_count" th:text="*{inquiryAnswerBool}"></span>
+                    <span class="comment_description">댓글</span>
+                  </div>
+                  <div class="board-infoItem">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" color="#999999" height="28" width="28" xmlns="http://www.w3.org/2000/svg" style="color: rgb(153, 153, 153)">
+                      <path d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 0 0 0 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"></path>
+                    </svg>
+                    <p th:text="*{inquiryViews}"></p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </li>
+
+        </th:block>
+
+      </ul>
+
+      <nav
+          class="pagination is-centered is-small"
+          role="navagation"
+          aria-label="pagination"
+      >
+        <ul class="pagination-list">
+          <li th:if="${pageDTO.prev == true}">
+            <a class="pagination-prev changePage" href="" aria-label="이전 페이지로 이동"
+               th:href="${pageDTO.startPage -1}"><<</a>
+          </li>
+          <th:block th:each="num:${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
+            <li>
+            <span class="pagination-link changePage"
+                  aria-label="1 페이지로 이동"
+                  th:if="${pageDTO.criteria.pageNum == num}" th:text="${num}"></span>
+              <a class="pagination-link changePage"
+                 aria-label="1 페이지로 이동"
+                 th:unless="${pageDTO.criteria.pageNum == num}" th:href="${num}"><span th:text="${num}"></span></a>
+            </li>
+          </th:block>
+          <li th:if="${pageDTO.next}">
+            <a class="pagination-next changePage" href="" aria-label="다음 페이지로 이동"
+               th:href="${pageDTO.endPage + 1}">>></a>
+          </li>
+        </ul>
+        <form action="/inquiry/list" name="pageForm" th:object="${criteria}">
+          <input type="hidden" th:field="*{pageNum}">
+          <input type="hidden" th:field="*{amount}">
+          <input type="hidden" th:filed="*{type}">
+          <input type="hidden" th:fleld="*{keyword}">
+        </form>
+      </nav>
+
+    </section>
+  </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script th:inline="javascript">
+  let memberNumber = [[${session.memberNumber}]];
+</script>
+<script src="/js/header.js"></script>
+<script src="/js/login.js"></script>
+<script th:inline="javascript">
+  let $pageForm = $("form[name='pageForm']");
+  let pageNum = [[${criteria.pageNum}]];
+  let $pageNums = $(".pagination-link"); /* css 변화를 위함 */
+  let inquiryList = [[${inquiryList}]];
+
+  /* 페이징버튼 css : 해당 페이지 번호가 is-current */
+  $(document).ready(function(){
+    $pageNums.each(function(){
+      if($(this).text() == pageNum ){
+        $pageNums.not($(this)).remove("is-current");
+        $(this).addClass("is-current");
+      }
+    });
+
+    console.log(inquiryList);
+    console.log('[[${inquiryList}]]'[0]);
+  });
+
+  /* 페이징 버튼 클릭시 - 페이지 이동 */
+  $(".changePage").on("click", function(e){
+    e.preventDefault();
+    $pageForm.find("input[name=pageNum]").val($(this).attr("href"));
+    $pageForm.submit();
+  });
+
+
+</script>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYDM | 관리자 센터</title>
+    <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+    <link href="/css/adminNav.css" rel="stylesheet">
+    <link href="/css/adminQnaView.css" rel="stylesheet">
+
+</head>
+<body>
+<!-- 여기부터 adminNav -->
+<header>
+    <div class="headerWrap">
+        <div class="headerLeft">
+            <div class="headerLogo">
+                <img onclick="location.href='/jobPosting/approveWait'" src="/img/adminLogo.png">
+            </div>
+        </div>
+        <div class="headerRight">
+            <div class="headerIcon">
+                <img src="/img/mainicon.png">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"></path></svg>
+                <div class="iconHidden">
+                    <div onclick="location.href='/admin/login'"><p>로그아웃</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<nav>
+    <div class="navWrap">
+        <div class="navDiv">
+            <div class="menuParent studyParent">
+                <p>스터디</p>
+                <div class="menuArrow">
+                    <svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-8mmkcg"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg>
+                </div>
+            </div>
+            <div class="menuChild studyChild" onclick="location.href='/study/getStudyList'">
+                <p>스터디 관리</p>
+            </div>
+        </div>
+        <div class="navDiv">
+            <div class="menuParent postParent">
+                <p>채용공고</p>
+                <div class="menuArrow">
+                    <svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-8mmkcg"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg>
+                </div>
+            </div>
+            <div class="menuChild postChild" onclick="location.href='/jobPosting/getJobList'">
+                <p>채용공고 관리</p>
+            </div>
+        </div>
+        <div class="navDiv">
+            <div class="menuParent qnaParent">
+                <p>문의게시판</p>
+                <div class="menuArrow">
+                    <svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-8mmkcg"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg>
+                </div>
+            </div>
+            <div class="menuChild qnaChild" onclick="location.href='/inquiry/getInqList'">
+                <p>문의글 관리</p>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- 여기까지 adminNav -->
+<section>
+    <div class="sectionWrap" th:object="${inquiry}">
+        <div class="topTitle">
+            <h1>문의글 상세보기</h1>
+        </div>
+        <div class="contentWrap">
+            <div class="backBtn">
+                <div>
+                    <svg onclick="goList()" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" color="808080" cursor="pointer" height="30" width="30" xmlns="http://www.w3.org/2000/svg" style="color: rgb(128, 128, 128);"><path d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path></svg>
+                </div>
+            </div>
+            <div class="qnaTitle">
+                <h1 th:text="*{inquiryTitle}"/>
+            </div>
+            <div class="writerWrap">
+                <div class="writerImg">
+                    <img th:src="*{memberProfile}">
+                </div>
+                <div class="writerName">
+                    <p th:text="*{memberNickname}"/>
+                </div>
+                <div class="registerDate">
+                    <p th:text="*{inquiryUpdateDate}"/>
+                </div>
+            </div>
+            <div class="pnaIntro">
+            </div>
+            <div class="pnaIntroDetail">
+                <p th:text="*{inquiryContent}"/>
+            </div>
+        </div>
+        <div class="qnaPrintWrap">
+            <div>
+                <div class="commentTitle"><p>답변</p></div>
+                <ul class="commentPrintWrap">
+                    <li>
+                        <form>
+                            <th:block th:if="*{inquiryAnswerBool == 0}">
+                                <p style="padding-left: 45px;">답변 대기 중 입니다.</p>
+                                <button class="answer">답변 하기</button>
+                            </th:block>
+                            <th:block class="bool" th:unless="*{inquiryAnswerBool == 0}">
+                                <p th:text="*{inquiryAnswer}"/>
+                                <div class="commentPrint">
+                                    <div class="commentModify">
+                                        <textarea class="modifyInput" cols="30" rows="10" th:text="*{inquiryAnswer}"/>
+                                    </div>
+                                </div>
+                                <div class="commentManageBtn">
+                                    <div>
+                                        <button type="button" class="answer">수정</button>
+                                        <button type="button" class="deleteBtn">삭제</button>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="qnaCommentWrap" style="display: none">
+            <div>
+                <div class="commentInputTitle"><p>답변 입력</p></div>
+                <form>
+                    <div class="commentInput">
+                        <textarea name="modifyInput" id="" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="btnWrap">
+                        <div>
+                            <button type="button" class="confirm">등록</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/adminNav.js"></script>
+<!--<script src="/js/adminQnaView.js"></script>-->
+<script th:inline="javascript">;
+let inquiryNumber = [[${inquiry.inquiryNumber}]];
+let params = [[${criteria.listLink}]];
+function goList(){
+    location.href = "/inquiry/getInqList"+params+"&inquiryNumber="+inquiryNumber;
+}
+
+
+$('button.answer').on("click", function (e) {
+    e.preventDefault();
+    $('div.qnaCommentWrap').css({'display':'block'});
+});
+
+
+$('button.confirm').on("click", function (e) {
+    e.preventDefault();
+
+    const modifyInput = $("textarea[name='modifyInput']").val();
+
+    if(!modifyInput){
+        alert("내용을 입력해주세요.");
+        return;
+    }
+
+    location.href="/inquiry/answer?inquiryNumber="+inquiryNumber+"&inquiryAnswer="+modifyInput;
+});
+
+$('button.deleteBtn').on("click", function (e) {
+    e.preventDefault();
+
+    location.href="/inquiry/deleteAnswer?inquiryNumber="+inquiryNumber;
+});
+</script>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoYeoDream!</title>
+    <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/inquiryView.css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+</head>
+<body>
+    <header th:replace="~{/fragments/header::header}"></header>
+    <!-- 헤더 부분 ↑ -->
+        <div class="main-container" th:object="${inquiry}">
+            <section class="top">
+                <a th:href="@{/inquiry/list}">
+                <div class="back">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" color="808080" cursor="pointer" height="30" width="30" xmlns="http://www.w3.org/2000/svg" style="color: rgb(128, 128, 128);">
+                        <path d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path>
+                    </svg>
+                </div>
+                </a>
+                <div class="study-title" th:text="*{inquiryTitle}"></div>
+                <div class="study-user">
+                    <div class="user-profile">
+                        <!--<img src="https://hola-post-image.s3.ap-northeast-2.amazonaws.com/default.PNG">-->
+                        <div class="user-nickname" th:text="*{memberNickname}"></div>
+                    </div>
+                    <div class="study-registered-date" th:if="*{inquiryRegisterDate == inquiryUpdateDate}" th:text="*{inquiryRegisterDate}"></div>
+                    <div class="study-registered-date" th:unless="*{inquiryRegisterDate == inquiryUpdateDate}" th:text="*{inquiryUpdateDate} + ' (수정)'"></div>
+                </div>
+
+                <section class="change-buttons">
+                    <div th:if="*{inquiryMemberNumber} == ${session.memberNumber}">
+                        <button type="button" class="change-button"><a th:href="@{/inquiry/modifyRead(inquiryNumber=*{inquiryNumber})}">수정</a></button>
+                        <button type="submit" class="change-button delete-button"><a th:href="@{/inquiry/remove(inquiryNumber=*{inquiryNumber})}">삭제</a></button>
+                    </div>
+                </section>
+            </section>
+
+            <section class="middle">
+                <div class="user-introduction"></div>
+            </section>
+
+            <section class="study-comment-wrap">
+                <div class="study-comment">
+                    <h2 class="user-introduction">답변</h2>
+
+                    <ul class="comment-list">
+
+                    </ul>
+
+                </div>
+            </section>
+        </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+<script th:inline="javascript">
+    let memberNumber = [[${session.memberNumber}]];
+</script>
+<script src="/js/header.js"></script>
+<script src="/js/login.js"></script>
+<script th:inline="javascript">
+
+    let filesWriterProfile = [[${inquiry.memberProfile}]];
+    const $resultWriterProfile = $(".user-profile");
+
+
+    //첨부파일
+    if(filesWriterProfile != null) {
+        $resultWriterProfile.prepend("<img src='/file/displayProfile?path=" + filesWriterProfile + "'>");
+    }
+    else {
+        $resultWriterProfile.prepend("<img src='https://hola-post-image.s3.ap-northeast-2.amazonaws.com/default.PNG'>");
+    }
+
+    let inquiryContent = [[${inquiry.inquiryContent}]];
+
+    let inquiryNumber = [[${inquiry.inquiryNumber}]];
+
+    $(document).ready(function() {
+
+        $("div.user-introduction").append(inquiryContent);
+
+
+        // 댓글 목록 불러오기
+        $.ajax({
+            url: "/inquirycomment/list/" + inquiryNumber,
+            type: "GET",
+            dataType: "json",
+            success: function(result) {
+                $commentContent = $("ul.comment-list");
+                $commentContent.empty();
+                if(result[0] == null) {
+                    let comment = "";
+                    comment += "<div class=\"comment-null-info-box\">";
+                    comment += "    <div class=\"comment-null-info\">저희 모여드림 이용에 감사드리며,</div>";
+                    comment += "    <div class=\"comment-null-info\">문의하신 내용에 대한 답변은 1 ~ 3일 소요됩니다.</div>";
+                    comment += "</div>";
+                    $('ul.comment-list').css('border-bottom', '3px solid #f2f2f2');
+
+                    $commentContent.append(comment);
+                } else {
+                    for (let i in result) {
+                        let comment = "";
+                        comment += "<li class=\"comment\">";
+                        comment += "    <section class=\"comment-info-wrap\">";
+                        comment += "        <div class=\"comment-info\">";
+                        comment += "            <img src=\"https://hola-post-image.s3.ap-northeast-2.amazonaws.com/default.PNG\">";
+                        comment += "            <div class=\"comment-title-wrap\">";
+                        comment += "                <div class=\"comment-title\">";
+                        comment += "                    <div class=\"comment-user\">모여드림 운영자</div>";
+                        if(result[i].inquiryCommentRegisterDate == result[i].inquiryCommentUpdateDate){
+                            comment += "                    <div class=\"comment-registered-date\">" + result[i].inquiryCommentRegisterDate + "</div>";
+                        }else {
+                            comment += "                    <div class=\"comment-registered-date\">" + result[i].inquiryCommentUpdateDate + " (수정)</div>";
+                        }
+                        comment += "                </div>";
+                        comment += "            </div>";
+                        comment += "        </div>";
+                        comment += "    </section>";
+                        comment += "    <section class=\"comment-content-wrap\">";
+                        comment += "        <p class=\"comment-content\">" + result[i].inquiryCommentContent + "</p>";
+                        comment += "    </section>";
+                        comment += "</li>";
+                        $commentContent.append(comment);
+                    }
+                }
+            }
+        });
+
+
+
+    });
+
+</script>
+</html>

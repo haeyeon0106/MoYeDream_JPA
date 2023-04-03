@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYDM | 관리자 센터</title>
+    <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+    <link href="/css/adminNav.css" rel="stylesheet">
+    <link href="/css/adminMain.css" rel="stylesheet">
+
+</head>
+<body>
+    <!-- 여기부터 adminNav -->
+    <header>
+        <div class="headerWrap">
+            <div class="headerLeft">
+                <div class="headerLogo">
+                    <img onclick="location.href='/jobPosting/approveWait'" src="/img/adminLogo.png">
+                </div>
+            </div>
+            <div class="headerRight">
+                <div class="headerIcon">
+                    <img src="/img/mainicon.png">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"></path></svg>
+                    <div class="iconHidden">
+                        <div onclick="location.href='/admin/login'"><p>로그아웃</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav>  
+        <div class="navWrap">
+            <div class="navDiv">
+                <div class="menuParent studyParent">
+                    <p>스터디</p>
+                    <div class="menuArrow">
+                        <svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-8mmkcg"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg>
+                    </div>
+                </div>
+                <div class="menuChild studyChild" onclick="location.href='/study/getStudyList'">
+                    <p>스터디 관리</p>
+                </div>
+            </div>
+            <div class="navDiv">
+                <div class="menuParent postParent">
+                    <p>채용공고</p>
+                    <div class="menuArrow">
+                        <svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-8mmkcg"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg>
+                    </div>
+                </div>
+                <div class="menuChild postChild" onclick="location.href='/jobPosting/getJobList'">
+                    <p>채용공고 관리</p>
+                </div>
+            </div>
+            <div class="navDiv">
+                <div class="menuParent qnaParent">
+                    <p>문의게시판</p>
+                    <div class="menuArrow">
+                        <svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-8mmkcg"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg>
+                    </div>
+                </div>
+                <div class="menuChild qnaChild" onclick="location.href='/inquiry/getInqList'">
+                    <p>문의글 관리</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- 여기까지 adminNav -->
+    <section>
+        <div class="sectionWrap">
+            <div class="sectionPreview">
+                <div class="previewMenu">
+                    <p>스터디 관리</p>
+                    <p class="moreList" onclick="location.href='/study/getStudyList'">더보기 >></p>
+                </div>
+                <ul class="previewList">
+                    <th:block th:if="${!#lists.isEmpty(studyList)}">
+                        <th:block th:each="study:${studyList}">
+                            <li th:object="${study}">
+                                <p class="previewNum" th:text="*{studyNumber}"/>
+                                <p class="previewTitle" th:text="*{studyTitle}"/>
+                            </li>
+                        </th:block>
+                    </th:block>
+                    <th:block th:unless="${!#lists.isEmpty(studyList)}">
+                        <li >
+                            <p style="text-align: center">
+                                승인 대기 중인 채용공고가 없습니다
+                            </p>
+                        </li>
+                    </th:block>
+                </ul>
+            </div>
+            <div class="sectionPreview">
+                <div class="previewMenu">
+                    <p>채용공고 관리</p>
+                    <p class="moreList" onclick="location.href='/jobPosting/getJobList'">더보기 >></p>
+                </div>
+                <ul class="previewList">
+                    <th:block th:if="${!#lists.isEmpty(jobpostingList)}">
+                        <th:block th:each="jobposting:${jobpostingList}">
+                            <li th:object="${jobposting}">
+                                <p class="previewNum" th:text="*{jobpostingCompanyName}"/>
+                                <p class="previewTitle" th:text="*{jobpostingTitle}"/>
+                            </li>
+                        </th:block>
+                    </th:block>
+                    <th:block th:unless="${!#lists.isEmpty(jobpostingList)}">
+                        <li >
+                            <p style="text-align: center">
+                                승인 대기 중인 채용공고가 없습니다
+                            </p>
+                        </li>
+                    </th:block>
+                </ul>
+            </div>
+            <div class="sectionPreview">
+                <div class="previewMenu">
+                    <p>문의글 관리</p>
+                    <p class="moreList" onclick="location.href='/inquiry/getInqList'">더보기 >></p>
+                </div>
+                <ul class="previewList">
+                    <th:block th:if="${!#lists.isEmpty(inquiryList)}">
+                        <th:block th:each="inquiry:${inquiryList}">
+                            <li th:object="${inquiry}">
+                                <p class="previewNum" th:text="*{inquiryNumber}"/>
+                                <p class="previewTitle" th:text="*{inquiryTitle}"/>
+                            </li>
+                        </th:block>
+                    </th:block>
+                    <th:block th:unless="${!#lists.isEmpty(inquiryList)}">
+                        <li >
+                            <p style="text-align: center">
+                                승인 대기 중인 채용공고가 없습니다
+                            </p>
+                        </li>
+                    </th:block>
+                </ul>
+            </div>
+        </div>
+    </section>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/adminNav.js"></script>
+<script th:inline="javascript">;
+    let adminNumber  = [[${number}]];
+    let count  = [[${count}]];
+    if(count){
+        alert(adminNumber+"번 관리자님 환영합니다!");
+    }
+</script>
+</html>

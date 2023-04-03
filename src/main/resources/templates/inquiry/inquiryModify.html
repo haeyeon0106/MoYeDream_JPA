@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoYeoDream!</title>
+    <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/inquiryCreate.css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+</head>
+<body>
+<header th:replace="~{/fragments/header::header}"></header>
+<!-- 헤더 부분 ↑ -->
+<div class="main-container" th:object="${inquiry}">
+    <form method="post" action="/inquiry/modify" id="inquiryForm">
+        <section class="bottom">
+            <div class="study-title">
+                <span>2</span>
+                <h2>수정 사항을 작성해주세요.</h2>
+            </div>
+            <input type="text" style="display: none" th:field="*{inquiryNumber}">
+            <section class="study-title-input">
+                <label for="title-input">제목</label>
+                <input type="text" name="inquiryTitle" id="title-input" placeholder="글 제목을 입력해주세요!" th:field="*{inquiryTitle}">
+                <div class="summernote"></div>
+                <input type="hidden" class="inquiry-content" name="inquiryContent">
+            </section>
+            <section class="study-button">
+                <button type="button" class="cancel"><a th:href="@{/inquiry/read(inquiryNumber=*{inquiryNumber})}">취소</a></button>
+                <button type="button" class="register">수정</button>
+            </section>
+        </section>
+    </form>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+<script th:inline="javascript">
+    let memberNumber = [[${session.memberNumber}]];
+</script>
+<script src="/js/header.js"></script>
+<script src="/js/login.js"></script>
+<script th:inline="javascript">
+
+    let inquiryContent = [[${inquiry.inquiryContent}]];
+
+    $(document).ready(function () {
+        $(".summernote").append(inquiryContent);
+        $('.summernote').summernote({
+            height: 523,
+            maxHeight: 523,
+            minHeight: 523,
+            lang: "ko-KR",
+            placeholder: '내용을 작성해주세요!',
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ],
+            callbacks: {
+                onImageUpload: function(files) {
+                    uploadImage(files[0], this);
+                }
+            }
+        });
+    });
+
+    const $inputTitle = $("input#title-input");
+    const $note = $(".summernote");
+    const $input = $("input.inquiry-content");
+    const $registerButton = $("button.register");
+
+
+    $registerButton.on("click", function () {
+        let note = $note.summernote('code');
+
+        if($inputTitle.val() == "") {
+            alert("문의 제목을 입력해주세요.");
+        }
+        else if(note == "<p><br></p>" || note == "") {
+            alert("문의 내용을 입력해주세요.");
+        }
+        else {
+            $input.val(note);
+            $("#inquiryForm").submit();
+        }
+    });
+
+    function uploadImage(files, editor) {
+        let data = new FormData();
+        data.append("files", files);
+        $.ajax({
+            url: '/file/uploadInquiry',
+            type: "post",
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(fileList) {
+                let keys = Object.keys(fileList[0]);
+                let fileName = fileList[0][keys[0]];
+                let uploadPath = fileList[0][keys[1]];
+
+                let url = "/file/displayInquiry?path=" + uploadPath + "/" + fileName;
+                $(editor).summernote('insertImage', url);
+            },
+            error: function(e) {
+                console.log(e);
+            }
+        });
+    }
+
+</script>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoYeoDream!</title>
+
+    <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/myComment.css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+</head>
+<body>
+    <div id="root">
+        <header th:replace="~{/fragments/header::header}"></header>
+        <!-- 헤더 부분 ↑ -->
+
+        <section class="myPosts_pageWrapper__2qXu7">
+            <div class="myPosts_myLikes__2p117">
+                <a th:href="@{/member/read}">
+                    <div class="back">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" color="808080" cursor="pointer" height="30" width="30" xmlns="http://www.w3.org/2000/svg" style="color: rgb(128, 128, 128);">
+                            <path d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path>
+                        </svg>
+                    </div>
+                </a>
+                <main class="myPosts_main__2wLL_">
+                    <section class="myPosts_category__1HXY_">
+                        <div class="myPosts_category__item__4sMf6">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M448 360V24c0-13.3-10.7-24-24-24H96C43 0 0 43 0 96v320c0 53 43 96 96 96h328c13.3 0 24-10.7 24-24v-16c0-7.5-3.5-14.3-8.9-18.7-4.2-15.4-4.2-59.3 0-74.7 5.4-4.3 8.9-11.1 8.9-18.6zM128 134c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm0 64c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm253.4 250H96c-17.7 0-32-14.3-32-32 0-17.6 14.4-32 32-32h285.4c-1.9 17.1-1.9 46.9 0 64z"></path>
+                            </svg>
+                            <span class="myPosts_text__nTd81">
+                                댓글 작성 목록
+                            </span>
+                        </div>
+                    </section>
+                    
+                    <div>
+                        <h3 class="info-read">게시글 별 작성한 댓글입니다.</h3>
+                    </div>
+
+                    <div class="question-list-container">
+                        <ul class="question-list">
+                            <div class="posts-container-header"></div>
+
+                            <th:block th:each="myComment:${myCommentList}">
+
+                                <li class="question-container" th:object="${myComment}">
+                                    <a th:href="@{/member/myCommentRead(postNumber=*{postNumber}, criteria = ${pageDTO.criteria.listLink})}">
+                                        <div class="question">
+                                            <div class="question__info">
+                                                <div class="question__title">
+                                                    <h3 class="title__text" th:text="*{postTitle}">
+                                                        게시물의 제목
+                                                    </h3>
+                                                </div>
+                                                작성한 댓글 &nbsp&nbsp
+                                                <span class="question__body" th:text="*{postCommentContent}">내가 쓴 댓글의 내용</span>
+                                                <div class="question__tags"></div>
+                                                <div class="question__info-footer">
+                                                    <span th:text="*{memberNickname}">게시물의 작성자 이름</span>
+                                                    <span>&nbsp;·&nbsp;</span>
+                                                    <span th:if="*{postRegisterDate == postUpdateDate}" th:text="*{postRegisterDate}"></span>
+                                                    <span th:unless="*{postRegisterDate == postUpdateDate}" th:text="*{postUpdateDate} + ' (수정)'"></span>
+                                                    <span>&nbsp;·&nbsp;</span>
+                                                    <span class="postCategory"></span>
+                                                    <span style="display: none" id="postCategory-sample" th:text="*{postCategory}"></span>
+                                                </div>
+                                            </div>
+                                            <div class="question__additional-info">
+                                                <div class="question__comment">
+                                                    <span class="comment__count" th:text="*{postCommentCount}"></span>
+                                                    <span class="comment__description">답변</span>
+                                                </div>
+                                                <button class="ac-button is-md is-text question__like e-like ">
+                                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" color="#999999" height="28" width="28" xmlns="http://www.w3.org/2000/svg" style="color: rgb(153, 153, 153);">
+                                                        <path d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 0 0 0 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"></path>
+                                                    </svg>
+                                                    <span th:text="*{postViews}"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+
+                            </th:block>
+
+                        </ul>
+                    </div>
+
+                    <nav class="pagination is-centered is-small"
+                         role="navagation"
+                         aria-label="pagination">
+                        <ul class="pagination-list">
+                            <li th:if="${pageDTO.prev == true}">
+                                <a class="pagination-prev changePage" href="" aria-label="이전 페이지로 이동"
+                                   th:href="${pageDTO.startPage -1}"><<</a>
+                            </li>
+                            <th:block th:each="num:${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
+                                <li>
+                                    <span class="pagination-link changePage" aria-label="1 페이지로 이동" th:if="${pageDTO.criteria.pageNum == num}" th:text="${num}"></span>
+                                    <a class="pagination-link changePage" aria-label="1 페이지로 이동" th:unless="${pageDTO.criteria.pageNum == num}" th:href="${num}"><span th:text="${num}"></span></a>
+                                </li>
+                            </th:block>
+                            <li th:if="${pageDTO.next}">
+                                <a class="pagination-next changePage" href="" aria-label="다음 페이지로 이동" th:href="${pageDTO.endPage + 1}">>></a>
+                            </li>
+                        </ul>
+                        <form th:action="@{/member/myComment(memberNumber=${memberNumber})}" name="pageForm" th:object="${criteria}">
+                            <input type="hidden" th:field="*{pageNum}">
+                            <input type="hidden" th:field="*{amount}">
+                            <input type="hidden" th:field="*{type}">
+                            <input type="hidden" th:field="*{keyword}">
+                        </form>
+                    </nav>
+
+                </main>
+            </div>
+        </section>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script th:inline="javascript">
+    let memberNumber = [[${session.memberNumber}]];
+</script>
+<script src="/js/header.js"></script>
+<script src="/js/login.js"></script>
+<script th:inline="javascript">
+    let $pageForm = $("form[name='pageForm']");
+    let pageNum = [[${criteria.pageNum}]];
+    let $pageNums = $(".pagination-link"); /* css 변화를 위함 */
+    let myPostList = [[${myCommentList}]];
+    let memberNumber2 = [[${memberNumber}]]
+
+    /* 페이징버튼 css : 해당 페이지 번호가 is-current */
+    $(document).ready(function(){
+        $pageNums.each(function(){
+            if($(this).text() == pageNum ){
+                $pageNums.not($(this)).remove("is-current");
+                $(this).addClass("is-current");
+            }
+        });
+
+        console.log(myPostList);
+        console.log('[[${myCommentList}]]'[0]);
+    });
+
+    /* 페이징 버튼 클릭시 - 페이지 이동 */
+    $(".changePage").on("click", function(e){
+        e.preventDefault();
+        $pageForm.find("input[name=pageNum]").val($(this).attr("href"));
+        $pageForm.submit();
+    });
+
+
+    $(document).ready(function() {
+
+        for(let i in myPostList) {
+            if (myPostList[i].postCategory == "FREETALKING") {
+                $(this).find($("span.postCategory").eq(i)).text("자유주제");
+            } else if (myPostList[i].postCategory == "QNA") {
+                $(this).find($("span.postCategory").eq(i)).text("질문&답변");
+            } else if (myPostList[i].postCategory == "STUDYREVIEW") {
+                $(this).find($("span.postCategory").eq(i)).text("스터디 후기");
+            } else if (myPostList[i].postCategory == "INTERVIEW") {
+                $(this).find($("span.postCategory").eq(i)).text("기업면접 후기");
+            }
+        }
+
+    });
+
+
+
+
+</script>
+<script src="/js/myComment.js"></script>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoYeoDream!</title>
+    <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/jobPostingView.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <header th:replace="~{/fragments/header::header}"></header>
+    <!-- 헤더 부분 ↑ -->
+    <div class="main-container" th:object="${jobPosting}">
+        <section class="top">
+            <a th:href="@{/main/index}">
+            <div class="back">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" color="808080" cursor="pointer" height="30" width="30" xmlns="http://www.w3.org/2000/svg" style="color: rgb(128, 128, 128);">
+                    <path d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path>
+                </svg>
+            </div>
+            </a>
+            <div class="study-title" th:text="*{jobpostingTitle}"></div>
+            <div class="study-user">
+                <div class="user-profile">
+                    <!--<img src="https://cf-cpi.campuspick.com/jobcompany/1617782593200481.png">-->
+                    <div class="user-nickname" th:text="*{jobpostingCompanyName}"></div>
+                </div>
+                <div class="study-registered-date" >
+                    <span>작성일&nbsp;&nbsp;</span>
+                    <span th:text="*{jobpostingRegisterDate}"></span>
+                </div>
+            </div>
+            <section class="change-buttons">
+                <div th:if="*{jobpostingMemberNumber} == ${session.memberNumber}">
+                    <button class="change-button"><a th:href="@{/jobPosting/modifyRead(jobpostingNumber=*{jobpostingNumber})}">수정</a></button>
+                    <button class="change-button delete-button"><a th:href="@{/jobPosting/remove(jobpostingNumber=*{jobpostingNumber})}">삭제</a></button>
+                </div>
+            </section>
+
+
+            <ul class="study-info-wrap">
+                <li class="study-info">
+                    <span class="study-info-title">접수 기간</span>
+                    <span class="study-info-content">
+                        <span th:text="*{jobpostingApplicationStart}"></span> ~ <span th:text="*{jobpostingApplicationEnd}"></span>
+                    </span>
+                </li>
+                <li class="study-info">
+                    <span class="study-info-title">채용 형태</span>
+                    <span class="study-info-content">
+                        <span th:text="*{jobpostingCareer}"></span> / <span th:text="*{jobpostingWorktype}"></span>
+                    </span>
+                </li>
+                <li class="study-info">
+                    <span class="study-info-title">지원 자격</span>
+                    <span class="study-info-content eligibilityCategory"></span>
+                </li>
+                <li class="study-info">
+                    <span class="study-info-title">근무 지역</span>
+                    <span class="study-info-content" th:text="*{jobpostingArea}"></span>
+                </li>
+                <li class="study-info">
+                    <span class="study-info-title">사이트</span>
+                    <div class="study-info-content">
+                        <a class="kakao-openchatting">
+                            <span>기업 사이트</span>
+                            <img src="https://holaworld.io/images/info/link.svg">
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <section class="middle">
+            <h2 class="detail-info">상세요강</h2>
+            <div class="detail-info">
+
+                <!--<img src="https://cf-cpi.campuspick.com/jobrecruit/1655359016697559.jpg">-->
+            </div>
+        </section>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script th:inline="javascript">
+    let memberNumber = [[${session.memberNumber}]];
+</script>
+<script src="/js/header.js"></script>
+<script src="/js/login.js"></script>
+<script th:inline="javascript">
+    let eligibilityCategory = [[${jobPosting.jobpostingEligibility}]];
+
+    let jobpostingCompanyUrl = [[${jobPosting.jobpostingCompanyUrl}]];
+
+    let jobpostingContent = [[${jobPosting.jobpostingContent}]];
+
+
+    $(document).ready(function() {
+
+        $("div.detail-info").append(jobpostingContent);
+
+        if(eligibilityCategory == "none") {
+            $("span.eligibilityCategory").text("학력 무관");
+        }
+        else if(eligibilityCategory == "college") {
+            $("span.eligibilityCategory").text("2·3년제 졸업 이상");
+        }
+        else if(eligibilityCategory == "university") {
+            $("span.eligibilityCategory").text("4년제 졸업 이상");
+        }
+
+
+    });
+
+    $("a.kakao-openchatting").click(function() {
+        location.href = jobpostingCompanyUrl;
+    });
+
+    let files = [[${jobPosting.jobpostingCompanyLogo}]];
+    const $result = $(".user-profile");
+
+
+    //첨부파일
+    if(files != null) {
+        $result.prepend("<img src='/file/displayCompanyLogo?path=" + files + "'>");
+    }
+    else {
+        $result.prepend("<img src='https://hola-post-image.s3.ap-northeast-2.amazonaws.com/default.PNG'>");
+    }
+
+</script>
+</html>

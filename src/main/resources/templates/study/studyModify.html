@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoYeoDream!</title>
+    <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/studyCreate.css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+</head>
+<body>
+<header th:replace="~{/fragments/header::header}"></header>
+<!-- 헤더 부분 ↑ -->
+<div class="main-container" th:object="${study}">
+    <form action="/study/modify" method="post" id="studyForm">
+        <section class="top">
+            <input type="hidden" th:field="*{studyNumber}">
+            <div class="study-info-title">
+                <span>1</span>
+                <h2>스터디 기본 정보를 입력해주세요.</h2>
+            </div>
+            <ul class="study-info-list">
+                <li class="study-info-item">
+                    <label for="category-select">카테고리</label>
+                    <div class="select">
+                        <select name="studyCategory" id="category-select" th:field="*{studyCategory}">
+                            <option value=""></option>
+                            <option value="culture">문화/예술</option>
+                            <option value="sports">스포츠/레저</option>
+                            <option value="computer">컴퓨터/프로그래밍</option>
+                            <option value="language">외국어/토익/토플</option>
+                            <option value="humanities">인문/과학</option>
+                            <option value="economy">경제/금융</option>
+                            <option value="politics">정치/사회</option>
+                            <option value="certificate">자격증</option>
+                            <option value="publicOfficial">공무원</option>
+                            <option value="employment">취업/면접</option>
+                        </select>
+                    </div>
+                </li>
+                <li class="study-info-item">
+                    <label for="way-select">진행 방식</label>
+                    <div class="select">
+                        <select name="studyProcess" id="way-select" th:field="*{studyProcess}">
+                            <option value=""></option>
+                            <option value="online">온라인</option>
+                            <option value="offline">오프라인</option>
+                        </select>
+                    </div>
+                </li>
+            </ul>
+            <ul class="study-info-list">
+                <li class="study-info-item">
+                    <label for="people-select">모집 인원</label>
+                    <div class="select">
+                        <select name="studyPersonnel" id="people-select" th:field="*{studyPersonnel}">
+                            <option value=""></option>
+                            <option value="none">인원 미정</option>
+                            <option value="one">1명</option>
+                            <option value="two">2명</option>
+                            <option value="three">3명</option>
+                            <option value="four">4명</option>
+                            <option value="five">5명</option>
+                            <option value="six">6명</option>
+                            <option value="seven">7명</option>
+                            <option value="eight">8명</option>
+                            <option value="nine">9명</option>
+                            <option value="tenUp">10명 이상</option>
+                        </select>
+                    </div>
+                </li>
+                <li class="study-info-item">
+                    <label for="start-date">시작 예정일</label>
+                    <div class="input">
+                        <input type="date" name="studyStart" id="start-date">
+                    </div>
+                </li>
+            </ul>
+            <ul class="study-info-list">
+                <li class="study-info-item">
+                    <label for="contact-input">연락 방법</label>
+                    <div class="input">
+                        <input type="text" name="studyCommunication" id="contact-input" placeholder="오픈 카톡방 링크" th:field="*{studyCommunication}">
+                    </div>
+                </li>
+                <li class="study-info-item">
+                    <label for="period-select">진행 기간</label>
+                    <div class="select">
+                        <select name="studyPeriod" id="period-select" th:field="*{studyPeriod}">
+                            <option value=""></option>
+                            <option value="none">기간 미정</option>
+                            <option value="oneMonth">1개월</option>
+                            <option value="twoMonths">2개월</option>
+                            <option value="threeMonths">3개월</option>
+                            <option value="fourMonths">4개월</option>
+                            <option value="fiveMonths">5개월</option>
+                            <option value="sixMonths">6개월</option>
+                            <option value="longTerm">장기</option>
+                        </select>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <section class="middle">
+            <div class="study-chief-title">
+                <span>2</span>
+                <h2>스터디장에 대해 소개해주세요.</h2>
+            </div>
+            <section class="study-chief-summernote">
+                <div class="summernote-chief"></div>
+                <input type="hidden" class="study-chief" name="studyChief">
+            </section>
+        </section>
+        <section class="bottom">
+            <div class="study-title">
+                <span>3</span>
+                <h2>스터디에 대해 소개해주세요.</h2>
+            </div>
+            <section class="study-title-input">
+                <label for="title-input">제목</label>
+                <input type="text" name="studyTitle" id="title-input" placeholder="글 제목을 입력해주세요!" th:field="*{studyTitle}">
+                <div class="summernote-study"></div>
+                <input type="hidden" class="study-content" name="studyContent">
+            </section>
+            <section class="study-button">
+                <button type="button" class="cancel">취소</button>
+                <button type="button" class="register">등록</button>
+            </section>
+        </section>
+    </form>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+<script th:inline="javascript">
+    let studyStart = [[${study.studyStart}]];
+    let studyChief = [[${study.studyChief}]];
+    let studyContent = [[${study.studyContent}]];
+    let memberNumber = [[${session.memberNumber}]];
+</script>
+<script src="/js/studyModify.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/login.js"></script>
+</html>

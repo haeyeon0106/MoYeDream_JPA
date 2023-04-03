@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoYeoDream!</title>
+    <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <style>
+        .onFilter button{
+            cursor: pointer;
+            border: 1px solid #ffe579;
+            background-color: #ffe579;
+            width: 130px;
+            border-radius: 10px;
+            font-size: 20px;
+            height: 50px;
+            margin-bottom: -15px;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="~{/fragments/header::header}"></header>
+<!-- 헤더 부분 ↑ -->
+    <section>
+        <!-- 메인배너 -->
+        <div class="banner">
+            <div class="bannerContent">
+                <div class="bannerLeft">
+                    <div class="bannerLeftWrap">
+                        <div>
+                            <button class="bannerBtn">NOTICE</button>
+                        </div>
+                        <div>
+                            <h2>새롭게 달라진 MYDM!</h2>
+                            <span>을 소개합니다.</span>
+                        </div>
+                        <div class="bannerTextBottom">
+                            <span>이제 마음에 맞는 팀원을 더 쉽게 만나세요 🔍</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bannerRight">
+                    <img src="/img/bannerRight.png">
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- 카테고리 필터 -->
+        <div class="cateFilterWrap">
+            <th:block th:if="${check == 0}">
+                <form method="get" action="/main/categoryView" id="searchView" th:object="${pageDTO}">
+                    <div class="cateBottomWrap" th:object="${criteria}" style="display: block">
+                        <ul>
+                            <li class="cateChildLi" value="C"><p>문화 • 예술</p></li>
+                            <li class="cateChildLi" value="S"><p>스포츠 • 레저</p></li>
+                            <li class="cateChildLi" value="P"><p>컴퓨터 • 프로그래밍</p></li>
+                            <li class="cateChildLi" value="F"><p>외국어 • 토익 • 토플</p></li>
+                            <li class="cateChildLi" value="I"><p>인문 • 과학</p></li>
+                            <li class="cateChildLi" value="N"><p>경제 • 금융</p></li>
+                            <li class="cateChildLi" value="O"><p>정치 • 사회</p></li>
+                            <li class="cateChildLi" value="E"><p>자격증</p></li>
+                            <li class="cateChildLi" value="A"><p>공무원</p></li>
+                            <li class="cateChildLi" value="M"><p>취업 • 면접</p></li>
+                        </ul>
+                    </div>
+                    <div class="cateBlockWrap">
+                        <ul>
+                            <li class="cateBlock" value="C" data-value="C" name="type"><div>문화 • 예술</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <li class="cateBlock" value="S" data-value="S" name="type"><div>스포츠 • 레저</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <li class="cateBlock" value="P" data-value="P" name="type"><div>컴퓨터 • 프로그래밍</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <li class="cateBlock"value="F" data-value="F" name="type"><div>외국어 • 토익 • 토플</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <li class="cateBlock" value="I" data-value="I" name="type"><div>인문 • 과학</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <li class="cateBlock" value="N" data-value="N" name="type"><div>경제 • 금융</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <li class="cateBlock" value="O" data-value="O" name="type"><div>정치 • 사회</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <li class="cateBlock" value="E" data-value="E" name="type"><div>자격증</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <li class="cateBlock" value="A" data-value="A" name="type"><div>공무원</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <li class="cateBlock" value="M" data-value="M" name="type"><div>취업 • 면접</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <span class="filterClear">필터 초기화</span>
+                        </ul>
+                    </div>
+                </form>
+            </th:block>
+            <th:block th:unless="${check == 0}">
+                <form method="get" action="/main/categoryLatest" id="searchLatest" th:object="${pageDTO}">
+                    <div class="cateBottomWrap" th:object="${criteria}" style="display: block">
+                        <ul>
+                            <li class="cateChildLi" value="C"><p>문화 • 예술</p></li>
+                            <li class="cateChildLi" value="S"><p>스포츠 • 레저</p></li>
+                            <li class="cateChildLi" value="P"><p>컴퓨터 • 프로그래밍</p></li>
+                            <li class="cateChildLi" value="F"><p>외국어 • 토익 • 토플</p></li>
+                            <li class="cateChildLi" value="I"><p>인문 • 과학</p></li>
+                            <li class="cateChildLi" value="N"><p>경제 • 금융</p></li>
+                            <li class="cateChildLi" value="O"><p>정치 • 사회</p></li>
+                            <li class="cateChildLi" value="E"><p>자격증</p></li>
+                            <li class="cateChildLi" value="A"><p>공무원</p></li>
+                            <li class="cateChildLi" value="M"><p>취업 • 면접</p></li>
+                        </ul>
+                    </div>
+                    <div class="cateBlockWrap">
+                        <ul>
+                            <li class="cateBlock" value="C" data-value="C" name="type"><div>문화 • 예술</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <li class="cateBlock" value="S" data-value="S" name="type"><div>스포츠 • 레저</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <li class="cateBlock" value="P" data-value="P" name="type"><div>컴퓨터 • 프로그래밍</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <li class="cateBlock"value="F" data-value="F" name="type"><div>외국어 • 토익 • 토플</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <li class="cateBlock" value="I" data-value="I" name="type"><div>인문 • 과학</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <li class="cateBlock" value="N" data-value="N" name="type"><div>경제 • 금융</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <li class="cateBlock" value="O" data-value="O" name="type"><div>정치 • 사회</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <li class="cateBlock" value="E" data-value="E" name="type"><div>자격증</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <li class="cateBlock" value="A" data-value="A" name="type"><div>공무원</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <li class="cateBlock" value="M" data-value="M" name="type"><div>취업 • 면접</div>
+                                <img class="filterXbtn" src="/img/delete.svg"></li>
+                            <span class="filterClear">필터 초기화</span>
+                        </ul>
+                    </div>
+                </form>
+            </th:block>
+        </div>
+
+
+
+        <!-- 메인 컨텐츠 List -->
+        <div class="mainContentWrap">
+            <div class="contentType">
+                <div class="typeWrap">
+                    <div class="typeLi typeSelect study-click">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 21H21" stroke="#333333" stroke-width="1.5" stroke-linecap="round"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M16.8845 4.82378C15.5155 3.62383 13.4241 3.74942 12.2122 5.10499C12.2122 5.10499 6.18886 11.8419 4.10018 14.1803C2.00875 16.5174 3.54182 19.746 3.54182 19.746C3.54182 19.746 6.994 20.8285 9.05372 18.5242C11.1148 16.2198 17.1685 9.45019 17.1685 9.45019C18.3804 8.09462 18.2522 6.02372 16.8845 4.82378Z" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M10.3604 7.29248L14.9255 11.2792" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        <span>스터디</span>
+                    </div>
+                    <div class="typeLi job-click">
+                        <!-- <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><mask id="mask0_859_3602" maskUnits="userSpaceOnUse" x="2" y="3" width="20" height="17"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.1 4.5C12.5982 3.57562 11.6307 3 10.5789 3H5C3.34315 3 2 4.34315 2 6V8V14C2 16.8284 2 18.2426 2.87868 19.1213C3.75736 20 5.17157 20 8 20H16C18.8284 20 20.2426 20 21.1213 19.1213C22 18.2426 22 16.8284 22 14V11.0694C22 9.13438 22 8.16685 21.5704 7.45301C21.3179 7.03348 20.9665 6.68212 20.547 6.42962C19.8332 6 18.8656 6 16.9306 6H15.6211C14.5693 6 13.6018 5.42438 13.1 4.5Z" fill="white"></path></mask><g mask="url(#mask0_859_3602)"><path d="M2.87869 19.1213L3.93935 18.0607L2.87869 19.1213ZM21.5704 7.45301L20.2852 8.22651L21.5704 7.45301ZM20.547 6.42962L19.7735 7.71481L20.547 6.42962ZM21.1213 19.1213L20.0607 18.0607L21.1213 19.1213ZM5.00001 4.5H10.5789V1.5H5.00001V4.5ZM3.50001 8V6H0.500007V8H3.50001ZM3.50001 14V8H0.500007V14H3.50001ZM16 18.5H8.00001V21.5H16V18.5ZM20.5 11.0694V14H23.5V11.0694H20.5ZM15.6211 7.5H16.9306V4.5H15.6211V7.5ZM15.6211 4.5C15.1193 4.5 14.6577 4.22537 14.4183 3.78436L11.7817 5.21564C12.5459 6.62338 14.0193 7.5 15.6211 7.5V4.5ZM0.500007 14C0.500007 15.3718 0.496821 16.5516 0.623218 17.4917C0.755416 18.475 1.05354 19.4175 1.81803 20.182L3.93935 18.0607C3.82516 17.9465 3.68394 17.7426 3.59647 17.0919C3.5032 16.3982 3.50001 15.4566 3.50001 14H0.500007ZM8.00001 18.5C6.54339 18.5 5.60183 18.4968 4.90807 18.4035C4.25746 18.3161 4.05354 18.1748 3.93935 18.0607L1.81803 20.182C2.58252 20.9465 3.52505 21.2446 4.50832 21.3768C5.44845 21.5032 6.6282 21.5 8.00001 21.5V18.5ZM23.5 11.0694C23.5 10.1305 23.5015 9.32253 23.4398 8.6633C23.3759 7.98227 23.2345 7.30907 22.8556 6.67952L20.2852 8.22651C20.3359 8.3108 20.4093 8.47827 20.4528 8.94324C20.4985 9.43 20.5 10.0733 20.5 11.0694H23.5ZM16.9306 7.5C17.9267 7.5 18.57 7.50154 19.0568 7.54716C19.5217 7.59074 19.6892 7.66408 19.7735 7.71481L21.3205 5.14444C20.6909 4.76554 20.0177 4.62408 19.3367 4.56025C18.6775 4.49846 17.8695 4.5 16.9306 4.5V7.5ZM22.8556 6.67952C22.4768 6.05022 21.9498 5.52318 21.3205 5.14444L19.7735 7.71481C19.9833 7.84106 20.1589 8.01674 20.2852 8.22651L22.8556 6.67952ZM10.5789 4.5C11.0807 4.5 11.5423 4.77463 11.7817 5.21564L14.4183 3.78436C13.6541 2.37662 12.1807 1.5 10.5789 1.5V4.5ZM16 21.5C17.3718 21.5 18.5516 21.5032 19.4917 21.3768C20.475 21.2446 21.4175 20.9465 22.182 20.182L20.0607 18.0607C19.9465 18.1748 19.7426 18.3161 19.0919 18.4035C18.3982 18.4968 17.4566 18.5 16 18.5V21.5ZM20.5 14C20.5 15.4566 20.4968 16.3982 20.4035 17.0919C20.3161 17.7426 20.1748 17.9465 20.0607 18.0607L22.182 20.182C22.9465 19.4175 23.2446 18.475 23.3768 17.4917C23.5032 16.5516 23.5 15.3718 23.5 14H20.5ZM5.00001 1.5C2.51473 1.5 0.500007 3.51472 0.500007 6H3.50001C3.50001 5.17157 4.17158 4.5 5.00001 4.5V1.5Z" fill="#858E86"></path><path d="M8.75 14.25H15.25" stroke="#858E86" stroke-width="1.5" stroke-linecap="round"></path></g></svg> -->
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 21H21" stroke="#333333" stroke-width="1.5" stroke-linecap="round"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M16.8845 4.82378C15.5155 3.62383 13.4241 3.74942 12.2122 5.10499C12.2122 5.10499 6.18886 11.8419 4.10018 14.1803C2.00875 16.5174 3.54182 19.746 3.54182 19.746C3.54182 19.746 6.994 20.8285 9.05372 18.5242C11.1148 16.2198 17.1685 9.45019 17.1685 9.45019C18.3804 8.09462 18.2522 6.02372 16.8845 4.82378Z" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M10.3604 7.29248L14.9255 11.2792" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        <span >채용공고</span>
+                    </div>
+                </div>
+                <div class="onFilter">
+                    <button onclick="changeView()" style="margin-right: 15px">인기순</button>
+                    <button onclick="changeLatest()">최신순</button>
+                </div>
+            </div>
+
+            <!-- List 시작 -->
+            <div class="contentChildren study-content" style="display:block;">
+                <ul class="contentList3Wrap">
+                </ul>
+            </div>
+        </div>
+    </section>
+    <form action="/main/jobList" th:object="${criteria}" name="jobViewPage">
+    </form>
+    <form action="/main/jobListLatest" th:object="${criteria}" name="jobLatestPage">
+    </form>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script th:inline="javascript">
+    let memberNumber = [[${session.memberNumber}]];
+</script>
+<script src="/js/header.js"></script>
+<script src="/js/login.js"></script>
+<script src="/js/main.js"></script>
+<script th:inline="javascript">;
+    let check =[[${check}]];
+    let studyList =[[${studyList}]];
+    let $searchView;
+    let $jobViewPage = $(jobViewPage);
+    let $jobLatestPage = $(jobLatestPage);
+    let $searchLatest;
+    let page = 1;
+    let job = false;
+    let scroll = false;
+    let last = false;
+
+    if(check == 0){
+        $searchView = $(searchView);
+    }else {
+        $searchLatest = $(searchLatest);
+    }
+
+    const $list = $(".contentList3Wrap");
+    let types = "";
+
+    // 인기순으로 이동
+    function changeView(){
+        job = false;
+        scroll = false;
+        location.href="/main/changeView";
+    }
+    // 최신순으로 이동
+    function changeLatest(){
+        job = false;
+        scroll = false;
+        location.href="/main/changeLatest";
+    }
+
+    // 서비스
+    let studyService = (function(){
+        function getListView(callback){
+            $.getJSON("/main/categoryView", function(study){
+                if(callback){
+                    callback(study);
+                }
+            });
+        }
+        function getListLatest(callback){
+            $.getJSON("/main/categoryLatest", function(study){
+                if(callback){
+                    callback(study);
+                }
+            });
+        }
+        function getListJobView(callback){
+            $.getJSON("/main/jobList", function(jobposting){
+                if(callback){
+                    callback(jobposting);
+                }
+            });
+        }
+        function getListJobLatest(callback){
+            $.getJSON("/main/jobListLatest", function(jobposting){
+                if(callback){
+                    callback(jobposting);
+                }
+            });
+        }
+        return {getListView: getListView, getListLatest: getListLatest, getListJobView: getListJobView,getListJobLatest: getListJobLatest};
+    })();
+
+    showList(studyList);
+
+    // 채용공고 클릭 시
+    $(".job-click").on("click", function(e) {
+        e.preventDefault();
+        $(".cateBottomWrap").css("display",'none');
+        job = true;
+        scroll = false;
+        page = 1;
+        last = false;
+        // 인기순이면
+        if(check == 0){
+            $jobViewPage.append("<input type='hidden' class='amount' name='amount' value='" + 9 + "'>");
+            $jobViewPage.append("<input type='hidden' class='pageNum' name='pageNum' value='" + page + "'>");
+            $.ajax({
+                url: "/main/jobList",
+                data: $jobViewPage.serialize(),
+                dataType: "json",
+                success: function (jobposting) {
+                    showListJob(jobposting);
+                }
+            });
+        // 최신순이면
+        } else {
+            $jobLatestPage.append("<input type='hidden' class='amount' name='amount' value='" + 9 + "'>");
+            $jobLatestPage.append("<input type='hidden' class='pageNum' name='pageNum' value='" + page + "'>");
+            $.ajax({
+                url: "/main/jobListLatest",
+                data: $jobLatestPage.serialize(),
+                dataType: "json",
+                success: function (jobposting) {
+                    showListJobLatest(jobposting);
+                }
+            });
+        }
+    });
+
+
+    // 스터디 클릭 시
+    $(".study-click").on("click", function(e) {
+        e.preventDefault();
+        $(".cateBottomWrap").css("display",'block');
+
+        job = false;
+        scroll = false;
+        types = "";
+        page = 1;
+        last = false;
+        $(".category").remove();
+        $(".cateBlockWrap ul li").each(function (i, item) {
+            if ($(item).css("display") != 'none') {
+                types += $(item).data("value");
+            }
+        });
+
+        // 인기순
+        if (check == 0) {
+            $searchView.append("<input type='hidden' class='category' name='category' value='" + types + "'>");
+            $searchView.append("<input type='hidden' class='pageNum' name='pageNum' value='" + page + "'>");
+            $searchView.append("<input type='hidden' class='amount' name='amount' value='" + 9 + "'>");
+            $.ajax({
+                url: "/main/categoryView",
+                data: $searchView.serialize(),
+                dataType: "json",
+                success: function (study) {
+                    console.log("가져온 스터디 ____ : "+study.toString());
+                    showList(study);
+                }
+            });
+        // 최신순
+        } else {
+            $searchLatest.append("<input type='hidden' class='category' name='category' value='" + types + "'>");
+            $searchView.append("<input type='hidden' class='pageNum' name='pageNum' value='" + page + "'>");
+            $searchView.append("<input type='hidden' class='amount' name='amount' value='" + 9 + "'>");
+            $.ajax({
+                url: "/main/categoryLatest",
+                data: $searchLatest.serialize(),
+                dataType: "json",
+                success: function (study) {
+                    showList(study);
+                }
+            });
+        }
+    });
+
+    // 전체 초기화 클릭 시
+    $("span.filterClear").on("click", function(e) {
+        e.preventDefault();
+        job = false;
+        scroll = false;
+        types = "";
+        page=1;
+        last = false;
+        // 클릭된 전체 초기화
+        $(".category").remove();
+        $(".cateBlockWrap ul li").each(function (i, item) {
+            if ($(item).css("display") != 'none') {
+                types += $(item).data("value");
+            }
+        });
+
+        // 인기순 일때
+        if (check == 0) {
+            $searchView.append("<input type='hidden' class='category' name='category' value='" + types + "'>");
+            $searchView.append("<input type='hidden' class='pageNum' name='pageNum' value='" + page + "'>");
+            $searchView.append("<input type='hidden' class='amount' name='amount' value='" + 9 + "'>");
+            $.ajax({
+                url: "/main/categoryView",
+                data: $searchView.serialize(),
+                dataType: "json",
+                success: function (study) {
+                    console.log("ajax로 뽑은 스터디 : " + study);
+                    showList(study);
+                }
+            });
+        // 최신순 일때
+        } else {
+            $searchLatest.append("<input type='hidden' class='category' name='category' value='" + types + "'>");
+            $searchView.append("<input type='hidden' class='pageNum' name='pageNum' value='" + page + "'>");
+            $searchView.append("<input type='hidden' class='amount' name='amount' value='" + 9 + "'>");
+            $.ajax({
+                url: "/main/categoryLatest",
+                data: $searchLatest.serialize(),
+                dataType: "json",
+                success: function (study) {
+                    console.log("ajax로 뽑은 스터디 : " + study);
+                    showList(study);
+                }
+            });
+        }
+    });
+
+    // 카테고리 클릭 시
+    $('.cateBottomWrap li.cateChildLi').on("click",function (e) {
+        e.preventDefault();
+        job = false;
+        scroll = false;
+        // 클릭된 value 가져오기
+        types = "";
+        last = false;
+        page=1;
+        $(".category").remove();
+        $(".cateBlockWrap ul li").each(function (i, item) {
+            if ($(item).css("display") != 'none') {
+                types += $(item).data("value");
+            }
+        });
+        console.log(types);
+
+        // 인기순
+        if (check == 0) {
+            $searchView.append("<input type='hidden' class='category' name='category' value='" + types + "'>");
+            $searchView.append("<input type='hidden' class='pageNum' name='pageNum' value='" + page + "'>");
+            $searchView.append("<input type='hidden' class='amount' name='amount' value='" + 9 + "'>");
+            $.ajax({
+                url: "/main/categoryView",
+                data: $searchView.serialize(),
+                dataType: "json",
+                success: function (study) {
+                    console.log("ajax로 뽑은 스터디 : " + study);
+                    console.log("=======================================================================================================================================");
+                    console.log("인기순 카테고리 스터디 목록 : " + study);
+                    showList(study);
+                }
+            });
+        // 최신순
+        } else {
+            $searchLatest.append("<input type='hidden' class='category' name='category' value='" + types + "'>");
+            $searchView.append("<input type='hidden' class='pageNum' name='pageNum' value='" + page + "'>");
+            $searchView.append("<input type='hidden' class='amount' name='amount' value='" + 9 + "'>");
+            $.ajax({
+                url: "/main/categoryLatest",
+                data: $searchLatest.serialize(),
+                dataType: "json",
+                success: function (study) {
+                    console.log("ajax로 뽑은 스터디 : " + study);
+                    showList(study);
+                }
+            });
+        }
+    });
+
+    // DOM으로 추가 - 스터디
+    function showList(study){
+        let totalStudy = study;
+        for (let i =0;i<totalStudy.length;i++){
+            console.log("가져온 스터디 DOM ______________ : " + totalStudy[i].toString());
+        }
+
+        studyService.getListView(
+        function(list){
+            let str = "";
+            if(totalStudy == null || list.length == 0 && !scroll){
+                $list.html("<p>등록된 게시물이 없습니다.</p>");
+                return;
+            }
+
+            $.each(totalStudy, function(i, study){
+                str += "<li class= 'contentListChild studyList' href='"+study.studyNumber +"');>";
+                str +=      "<div class= 'contentDate'>";
+                str +=          "<p class='dateText'>시작 예정일 |</p>";
+                str +=          "<p>" + study.studyStart + "</p>";
+                str +=      "</div>";
+                str +=      "<h2>" + study.studyTitle + "</h2>";
+                str +=      "<ul class = 'hashList'>";
+                str +=          "<li>" + study.studyCategory + "</li>";
+                str +=          "<li>"+ study.studyProcess +"</li>";
+                str +=          "<li>" + study.studyPersonnel +"</li>";
+                str +=      "</ul>";
+                str +=      "<div class='contentBottom'>";
+                str +=          "<div class='contentLeader'>"
+                str +=             "<img src='/file/displayProfile?path=" + study.memberProfile + "'>";
+                str +=              "<p>"+ study.memberNickname +"</p>";
+                str +=          "</div>";
+                str +=          "<div class='contentReaction'>";
+                str +=              "<div class='reactionView'>";
+                str +=                  "<svg stroke='currentColor' fill='currentColor' stroke-width='0' viewBox='0 0 1024 1024' color='#999999' height='28' width='28' xmlns='http://www.w3.org/2000/svg' style='color: rgb(153, 153, 153);'><path d='M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 0 0 0 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z'></path></svg>";
+                str +=                  "<p>" + study.studyViews + "</p>";
+                str +=              "</div>";
+                str +=              "<div class='reactionComment'>";
+                str +=                  "<svg stroke='currentColor' fill='currentColor' stroke-width='0' viewBox='0 0 512 512' color='#999999' height='20' width='20' xmlns='http://www.w3.org/2000/svg' style='color: rgb(153, 153, 153);'><path d='M256 32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26S14.4 480 24 480c61.5 0 110-25.7 139.1-46.3C192 442.8 223.2 448 256 448c141.4 0 256-93.1 256-208S397.4 32 256 32zm0 368c-26.7 0-53.1-4.1-78.4-12.1l-22.7-7.2-19.5 13.8c-14.3 10.1-33.9 21.4-57.5 29 7.3-12.1 14.4-25.7 19.9-40.2l10.6-28.1-20.6-21.8C69.7 314.1 48 282.2 48 240c0-88.2 93.3-160 208-160s208 71.8 208 160-93.3 160-208 160z'></path></svg>";
+                str +=                  "<p>"+ study.studyCommentTotal +"</p>";
+                str +=              "</div>";
+                str +=          "</div>";
+                str +=      "</div>";
+                str += "</li>";
+            });
+
+            // 내부에 추가
+            if(scroll){
+                $list.append(str);
+            }else {
+                $list.html(str);
+            }
+        });
+    }
+
+    // DOM으로 추가 - 채용공고 인기순
+    function showListJob(jobposting){
+        let totalJobposting = jobposting;
+        studyService.getListJobView(
+        function(list){
+            let str = "";
+            if(totalJobposting == null || list.length == 0 && !scroll){
+                $list.html("<p>등록된 게시물이 없습니다.</p>");
+                return;
+            }
+
+            $.each(totalJobposting, function(i, jobposting){
+                str += "<li class='contentListChild jobpostingList' href='"+ jobposting.jobpostingNumber +"'>";
+                str +=      "<div class= 'contentDate'>";
+                str +=          "<p class='dateText'>접수 기간 |</p>";
+                str +=          "<p>" + jobposting.jobpostingApplicationStart + " ~ </p>";
+                str +=          "<p>" + jobposting.jobpostingApplicationEnd + "</p>";
+                str +=      "</div>";
+                str +=      "<h2>"+ jobposting.jobpostingTitle +"</h2>";
+                str +=      "<ul class='hashList'>";
+                str +=          "<li>" + jobposting.jobpostingCareer + "</li>";
+                str +=          "<li>"+ jobposting.jobpostingWorktype +"</li>";
+                str +=          "<li>" + jobposting.jobpostingEligibility +"</li>";
+                str +=      "</ul>";
+                str +=      "<div class='contentBottom'>";
+                str +=          "<div class='contentLeader'>"
+                str +=             "<img src='/file/displayCompanyLogo?path=" + jobposting.jobpostingCompanyLogo +"' />";
+                str +=              "<p>"+jobposting.jobpostingCompanyName+"</p>";
+                str +=          "</div>";
+                str +=      "</div>";
+                str += "</li>";
+            });
+
+            if(scroll){
+                $list.append(str);
+            }else {
+                $list.html(str);
+            }
+        });
+    }
+    // DOM으로 추가 - 채용공고 최신순
+    function showListJobLatest(jobposting){
+        let totalJobposting = jobposting;
+        studyService.getListJobLatest(
+        function(list){
+            let str = "";
+            if(totalJobposting == null || list.length == 0 && !scroll){
+                $list.append("<p>등록된 게시물이 없습니다.</p>");
+                return;
+            }
+
+            $.each(totalJobposting, function(i, jobposting){
+
+                str += "<li class= 'contentListChild jobpostingList'>";
+                str +=      "<div class= 'contentDate'>";
+                str +=          "<p class='dateText'>접수 기간 |</p>";
+                str +=          "<p>" + jobposting.jobpostingApplicationStart + " ~ </p>";
+                str +=          "<p>" + jobposting.jobpostingApplicationEnd + "</p>";
+                str +=      "</div>";
+                str +=      "<h2>"+ jobposting.jobpostingTitle +"</h2>";
+                str +=      "<ul class='hashList'>";
+                str +=          "<li>" + jobposting.jobpostingCareer + "</li>";
+                str +=          "<li>"+ jobposting.jobpostingWorktype +"</li>";
+                str +=          "<li>" + jobposting.jobpostingEligibility +"</li>";
+                str +=      "</ul>";
+                str +=      "<div class='contentBottom'>";
+                str +=          "<div class='contentLeader'>"
+                str +=             "<img src='" + jobposting.jobpostingCompanyLogo +"' />";
+                str +=              "<p style='align=\"right\"'>"+jobposting.jobpostingCompanyName+"</p>";
+                str +=          "</div>";
+                str +=      "</div>";
+                str += "</li>";
+            });
+
+            if(scroll){
+                $list.append(str);
+            }else {
+                $list.html(str);
+            }
+        });
+    }
+
+    // 이벤트 위임 각각의 스터디 클릭 시 - 상세보기로 이동
+    $("ul.contentList3Wrap").on("click","li.studyList ", function(e) {
+        e.preventDefault();
+        location.href = "/study/read?studyNumber=" + $(this).attr("href");
+    });
+
+    // 이벤트 위임 각각의 채용공고 클릭 시 - 상세보기로 이동
+    $("ul.contentList3Wrap").on("click", "li.jobpostingList", function(e) {
+        e.preventDefault();
+        location.href = "/jobPosting/read?jobpostingNumber=" + $(this).attr("href");
+    });
+
+    (function() {
+        const template = function() {
+            if(check == 0 && !job){
+                $searchView.append("<input type='hidden' class='category' name='category' value='" + types + "'>");
+                $searchView.append("<input type='hidden' class='pageNum' name='pageNum' value='" + page + "'>");
+                $searchView.append("<input type='hidden' class='amount' name='amount' value='" + 9 + "'>");
+                $.ajax({
+                    url: "/main/categoryView",
+                    data: $searchView.serialize(),
+                    dataType: "json",
+                    success: function (study) {
+                        if(9 == study.length){
+                            showList(study);
+                        }else if(8 >= study.length) {
+                            last = true;
+                            showList(study);
+                        }
+                    }
+                });
+            }else if (check == 1 && !job) {
+                $searchLatest.append("<input type='hidden' class='category' name='category' value='" + types + "'>");
+                $searchLatest.append("<input type='hidden' class='pageNum' name='pageNum' value='" + page + "'>");
+                $searchLatest.append("<input type='hidden' class='amount' name='amount' value='" + 9 + "'>");
+                $.ajax({
+                    url: "/main/categoryLatest",
+                    data: $searchLatest.serialize(),
+                    dataType: "json",
+                    success: function (study) {
+                        if(9 == study.length){
+                            showList(study);
+                        }else if(8 >= study.length) {
+                            last = true;
+                            showList(study);
+                        }
+                    }
+                });
+                // 인기 순 채용 공고
+            }else if(check == 0 && job){
+                $jobViewPage.append("<input type='hidden' class='amount' name='amount' value='" + 9 + "'>");
+                $jobViewPage.append("<input type='hidden' class='pageNum' name='pageNum' value='" + page + "'>");
+                console.log("페이지 : "+page);
+                $.ajax({
+                    url: "/main/jobList",
+                    data: $jobViewPage.serialize(),
+                    dataType: "json",
+                    success: function (jobposting) {
+                        if(9 == jobposting.length){
+                            showListJob(jobposting);
+                        }else if(8 >= jobposting.length) {
+                            last = true;
+                            showListJob(jobposting);
+                        }
+                    }
+                });
+                // 최신 순 채용 공고
+            }else if(check == 1 && job){
+                $jobLatestPage.append("<input type='hidden' class='amount' name='amount' value='" + 9 + "'>");
+                $jobLatestPage.append("<input type='hidden' class='pageNum' name='pageNum' value='" + page + "'>");
+                $.ajax({
+                    url: "/main/jobListLatest",
+                    data: $jobLatestPage.serialize(),
+                    dataType: "json",
+                    success: function (jobposting) {
+                        if(9 == jobposting.length){
+                            showListJobLatest(jobposting);
+                        }else if(8 >= jobposting.length) {
+                            last = true;
+                            showListJobLatest(jobposting);
+                        }
+                    }
+                });
+            }
+
+        };
+
+        //스크롤 바닥 감지
+        window.onscroll = function(e) {
+            //window height + window scrollY 값이 document height보다 클 경우
+            if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                if(!last){
+                    page++;
+                    scroll = true;
+                    template();  //콘텐츠 추가
+                }
+            }
+        };
+    })();
+</script>
+</html>
